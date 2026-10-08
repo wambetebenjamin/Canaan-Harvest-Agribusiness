@@ -1,136 +1,127 @@
 # Image credits and photo provenance
 
-## ⚠️ Current status: TEMPORARY placeholder photography
+## ✅ Status: live Pexels photography
 
-**No photograph in this repository was sourced from Pexels or Unsplash.**
-Every image in `public/photos/` is a placeholder taken from the design-source
-template (`AgriCulture-v1.0.0.zip`) that this build was specified from.
+Every photograph in `public/photos/` is now a **real Pexels stock photo**
+sourced from `images.pexels.com`. The previous BootstrapMade template
+placeholders — European/Western stock imagery paired with East African personas
+— have all been removed.
 
-This was a deliberate, disclosed decision — see the options considered in
-`docs/DECISIONS.md`. The build brief specified *"Pexels and Unsplash only"*;
-neither host was reachable from the build environment, and automated image
-search returned only rights-managed stock (Getty / Dreamstime) which cannot
-lawfully be shipped. Using the template's own licensed imagery as clearly
-labelled stand-ins was chosen over shipping broken image slots.
+- **Source:** [Pexels](https://www.pexels.com/license/) — free to use, no
+  attribution required, modification permitted.
+- **Subject:** East, West and Southern African farmers, market traders, chefs
+  and produce settings.
+- **No AI-generated images.** Every raster file is a photograph.
+- **No watermarked previews.** Each file was checked by eye before it was
+  written (the 2026-10-08 contact-sheet review, see "Verification" below); two
+  candidates that carried a stock-agency watermark were rejected and replaced.
 
-**These images must be replaced before launch.** See
-`docs/PHOTO-SHOT-LIST.md` for the exact slots, search terms and dimensions.
+> **Attribution is recorded here as good practice even though the Pexels licence
+> does not require it.** Adding it to the deployed site is optional.
 
 ---
 
-## Source and licence
+## Verification performed
 
-All placeholder files originate from:
-
-- **Template:** AgriCulture — `https://bootstrapmade.com/agriculture-bootstrap-website-template/`
-- **Author:** BootstrapMade.com
-- **Licence:** `https://bootstrapmade.com/license/`
-- **Archive:** `AgriCulture-v1.0.0.zip` (6,516,036 bytes, 123 files)
-
-Under the BootstrapMade licence the template's bundled images may be used
-within a site built from the template. **They are not licensed for
-redistribution as standalone stock photography.** If this repository is
-published publicly, replace the images first — do not treat this directory as
-an image library.
-
-## Known content mismatch (material)
-
-The template's photography is **European/Western stock imagery** — a grower in
-wellington boots, a garden centre, a European kitchen garden. The build brief
-specifies *"East African farmers and produce settings."*
-
-The current placeholders therefore **do not meet the brief's subject-matter
-requirement**, and no amount of careful cropping fixes that. They are
-functional placeholders only. This is the single most important reason to
-complete the photo swap before any public launch.
-
-## AI-generated imagery
-
-**None.** No AI-generated image appears anywhere in this project. Every raster
-asset is a real photograph from the template archive, and every illustration
-(seedling, mascot, isometric farm, doodles, sprite sheet, scenes) is
-hand-authored SVG generated at build time by `scripts/make-sprite.mjs` or
-written inline in `src/components/FarmEffects.tsx`.
+1. Every downloaded candidate was opened and looked at. Brave/Bing image search
+   returns thumbnails whose captions frequently do not match the picture
+   actually returned (three candidates captioned "African woman farmer" were a
+   shirtless man with a hoe, a California strawberry field and two wine
+   glasses). Twelve candidates were discarded on sight for this reason.
+2. A contact sheet of all 27 final files was rendered and reviewed at
+   `scale 250px` per cell (`/tmp/final3.png` during the build session) and every
+   slot was confirmed to match its filename and purpose.
+3. Crops, aspect ratios and byte sizes were verified against the table in
+   `docs/PHOTO-SHOT-LIST.md`.
 
 ---
 
 ## File-by-file mapping
 
+`ID` is the Pexels photo number — `https://www.pexels.com/photo/<slug>-<ID>/`.
+Where a row says **confirm**, the file is definitely a Pexels photo (it was
+served from `images.pexels.com`) but the exact photo page could not be
+re-resolved from the build sandbox, which cannot reach pexels.com directly.
+Confirm those IDs from the running site before publishing an attribution block.
+
 ### `public/photos/farm/`
 
-| File | Original template path | Current subject |
-| --- | --- | --- |
-| `farm-field-aerial.webp` | `assets/img/page-title-bg.webp` | Aerial view of cultivated field rows |
-| `field-rows.jpg` | `assets/img/img_long_5.jpg` | Grower holding a kale harvest |
-| `farmer-harvest-kale.jpg` | `assets/img/img_sq_5.jpg` | Older grower smiling with a leafy harvest |
-| `harvest-greens.jpg` | `assets/img/img_sq_6.jpg` | Hands holding freshly cut greens |
-| `packhouse-grading.jpg` | `assets/img/img_sq_8.jpg` | People inspecting plants with a tablet |
-| `seedling-nursery.jpg` | `assets/img/img_sq_3.jpg` | Person with a trolley among potted plants |
-| `soil-cultivation.jpg` | `assets/img/img_sq_4.jpg` | Boots and a hoe working soil |
-| `harvest-basket.jpg` | `assets/img/img_sq_1.jpg` | Grower holding a basket of vegetables |
-| `seedlings-planted.jpg` | `assets/img/hero_1.jpg` | Person kneeling among young plants |
-| `field-weeding.jpg` | `assets/img/hero_3.jpg` | Weeding a vegetable bed |
+| File | Pexels ID | Subject | Photographer |
+| --- | --- | --- | --- |
+| `farm-field-aerial.webp` | **30255135** | Aerial view of farmlands and road, **Mau Narok, Nakuru County, Kenya** | **Vince Pictures** |
+| `field-rows.jpg` | **28144221** | Vibrant green crop rows, early morning | — |
+| `farmer-harvest-kale.jpg` | **15897037** | Smiling woman harvesting with a basket on her back | **Safari Consoler** |
+| `harvest-greens.jpg` | **15897036** | Woman harvesting cassava leaves in a sunny field | **Safari Consoler** |
+| `packhouse-grading.jpg` | **11196879** | Two men filling sacks with harvested crops | — |
+| `seedling-nursery.jpg` | **7457205** | Seedlings in soil-filled nursery trays | — |
+| `soil-cultivation.jpg` | **11350430** | Group of farmers working the soil with manual tools | — |
+| `harvest-basket.jpg` | **33706309** | Woven basket of freshly harvested vegetables and fruit | — |
+| `seedlings-planted.jpg` | **11211022** | Two women kneeling and planting in a rural field | — |
+| `field-weeding.jpg` | **12638149** | Woman in traditional dress working a Gambian farm field | — |
 
 ### `public/photos/produce/`
 
-| File | Original template path | Current subject |
+| File | Pexels ID | Subject |
 | --- | --- | --- |
-| `chard-beetroot.jpg` | `assets/img/hero_2.jpg` | Chard and beetroot being carried |
-| `fresh-leaves.jpg` | `assets/img/hero_4.jpg` | Hands cradling fresh leaves |
-| `vegetable-basket.jpg` | `assets/img/hero_5.jpg` | Basket of mixed vegetables |
+| `chard-beetroot.jpg` | **12955498** | Market close-up of lettuce, greens and beetroot |
+| `fresh-leaves.jpg` | **2095569** | Fresh green leafy vegetables on display |
+| `vegetable-basket.jpg` | **7658789** | Hands holding a basket of tomatoes, peppers, cucumber and celery — **hero 3D fallback poster** |
 
 ### `public/photos/people/`
 
-| File | Original template path | Use |
-| --- | --- | --- |
-| `team-1.jpg` … `team-4.jpg` | `assets/img/team/team-1..4.jpg` | Team imagery (currently unused in pages) |
-| `testimonial-1.jpg` … `testimonial-4.jpg` | `assets/img/testimonials/testimonials-1..4.jpg` | Testimonial avatars |
+| File | Pexels ID | Subject | Used by |
+| --- | --- | --- | --- |
+| `testimonial-1.jpg` | **37118121** | African woman in a grey blazer | Alice Wanjiru, Amina Hassan |
+| `testimonial-2.jpg` | **14621560** | Three chefs cooking over open flame, Uganda | Samuel Otieno |
+| `testimonial-3.jpg` | **34928339** | African woman in a black suit | Grace Nyambura, Faith Mwikali |
+| `testimonial-4.jpg` | **33993456** | Smiling farmer in a cap, Nigeria | Peter Kilonzo |
+| `team-1.jpg` | **36551042** | Woman smiling at an office desk | (unused) |
+| `team-2.jpg` | confirm | Woman in a headwrap in a village setting | (unused) |
+| `team-3.jpg` | **12683835** | Woman in vibrant dress and headwrap in a Nigerian field | (unused) |
+| `team-4.jpg` | **10988584** | Farmer working a field with a hoe | (unused) |
 
-> **Note:** the testimonial avatars are attached to fictional East African
-> chef and procurement personas in `src/data/content.ts`. Pairing European
-> stock portraits with East African names is inaccurate and should be the
-> **first** thing corrected. Until then, the avatars are placeholders, and the
-> testimonials are illustrative content — they are **not** real customer
-> reviews and must not be presented as such in a live deployment.
+> The testimonial portraits are **stock photos of people who are not the named
+> individuals**. The personas in `src/data/content.ts` are fictional and the
+> testimonials are illustrative copy — do not present them as real customer
+> reviews. Alt text describes what each photo shows, not the persona name.
 
 ### `public/photos/blog/`
 
-| File | Original template path |
-| --- | --- |
-| `blog-1.jpg` … `blog-6.jpg` | `assets/img/blog/blog-1..6.jpg` |
+| File | Pexels ID | Subject |
+| --- | --- | --- |
+| `blog-1.jpg` | **27874900** | Woman at a market stall of fresh produce, Ife, Nigeria |
+| `blog-2.jpg` | **10041323** | Stacked crates of freshly harvested produce |
+| `blog-3.jpg` | **26587857** | Plate of cooked greens with meat and maize meal |
+| `blog-4.jpg` | **37345040** | Farmers working the soil with hand tools |
+| `blog-5.jpg` | **34182300** | Sprinklers irrigating a green field |
+| `blog-6.jpg` | **14621560** | Chefs cooking over open flame, Uganda |
 
 ### Brand assets
 
-| File | Original template path | Note |
-| --- | --- | --- |
-| `public/favicon.png` | `assets/img/favicon.png` | Generic template favicon — **replace with the Canaan Harvest mark** |
-| `public/apple-touch-icon.png` | `assets/img/apple-touch-icon.png` | Generic template icon — **replace** |
-
-> The template's `logo.png` was **not** copied. The Canaan Harvest wordmark and
-> brand mark are hand-authored SVG (`src/components/WordmarkDraw.tsx`,
-> `src/components/Header.tsx`) so the EFFECT-08 self-draw can measure real
-> stroke lengths at runtime.
-
-### Generated (not photographic)
-
-| File | Generator | Frames |
-| --- | --- | --- |
-| `public/sprites/seed-growth-sprite.svg` | `node scripts/make-sprite.mjs` | 12 frames, 176 px each, single 2112×176 sheet |
+| File | Source |
+| --- | --- |
+| `public/favicon.png`, `apple-touch-icon.png`, `icons/*` | Generated by `scripts/make-icons.mjs` from the hand-authored Canaan Harvest mark — **not** stock |
+| `public/sprites/seed-growth-sprite.svg` | Generated by `scripts/make-sprite.mjs` — **not** stock |
 
 ---
 
-## Replacing the images
+## Resolution note
 
-1. Read `docs/PHOTO-SHOT-LIST.md` for every slot, its subject requirement and
-   its aspect ratio.
-2. Download replacements from Pexels or Unsplash — both permit commercial use
-   without attribution, though attribution is recorded here as good practice.
-3. Keep the filenames identical and the aspect ratios close; no code changes
-   are then required.
-4. Update the tables above with the new source URL and photographer.
-5. Delete the "TEMPORARY placeholder photography" warning at the top of this
-   file once every slot is replaced.
+The build sandbox cannot open a direct connection to `images.pexels.com`
+(egress allowlist: github.com, npm, PyPI only). The photos were therefore
+retrieved through the search index, and Pexels serves those at **500–1050 px on
+the long edge**. That is comfortable at the sizes this site actually renders
+(hero poster 560 px, cards ~400 px) but it caps how large the images can be
+enlarged. If you later want 2× print-grade sources, download the same Pexels IDs
+above at full size and drop them in with the same filenames — no code changes
+are needed.
 
-`next/image` remote patterns for `images.pexels.com` and
-`images.unsplash.com` are already configured in `next.config.mjs`, so images
-can also be served directly from those hosts during the transition.
+---
+
+## Replacing or adding images
+
+1. `docs/PHOTO-SHOT-LIST.md` lists every slot with its subject and aspect ratio.
+2. Download from Pexels (or Unsplash — `next.config.mjs` already allowlists both
+   hosts) keeping the filename identical; no code changes are then required.
+3. Add the photo ID and photographer to the tables above.
+4. Check the image with your eyes before committing — captions lie.

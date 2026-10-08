@@ -69,7 +69,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['5 kg crate', '12 kg crate', '25 kg sack'],
     freshness: 'today',
     image: `${P}/fresh-leaves.jpg`,
-    alt: 'Bundles of freshly harvested collard greens on a farm',
+    alt: 'Bundles of fresh leafy greens on display',
     organic: true,
   },
   {
@@ -83,7 +83,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['2 kg box', '5 kg box'],
     freshness: 'today',
     image: `${F}/harvest-greens.jpg`,
-    alt: 'African nightshade greens held after harvest',
+    alt: 'A farmer carrying a basket through leafy crops',
     organic: true,
   },
   {
@@ -97,7 +97,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['3 kg box', '8 kg box'],
     freshness: 'today',
     image: `${P}/chard-beetroot.jpg`,
-    alt: 'Amaranth greens with roots freshly lifted from the soil',
+    alt: 'Fresh greens and beetroot side by side at market',
   },
   {
     id: 'tomatoes',
@@ -110,7 +110,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['10 kg crate', '20 kg crate'],
     freshness: '24h',
     image: `${P}/vegetable-basket.jpg`,
-    alt: 'Ripe red tomatoes packed in a harvest basket',
+    alt: 'A basket of freshly picked tomatoes, peppers, cucumber and celery',
   },
   {
     id: 'hoho',
@@ -123,7 +123,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['5 kg crate', '10 kg crate'],
     freshness: '24h',
     image: `${F}/harvest-basket.jpg`,
-    alt: 'Green bell peppers sorted into a crate',
+    alt: 'A woven basket of freshly harvested vegetables and fruit',
     coldChain: true,
   },
   {
@@ -137,7 +137,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['10 kg bag', '20 kg bag'],
     freshness: 'today',
     image: `${F}/soil-cultivation.jpg`,
-    alt: 'Carrots being lifted from cultivated soil',
+    alt: 'Farmers working the soil with hand tools',
     coldChain: true,
   },
 
@@ -153,7 +153,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['4 kg carton', '10 kg carton', 'Export 4 kg tray'],
     freshness: '24h',
     image: `${P}/fresh-leaves.jpg`,
-    alt: 'Hass avocados harvested at the Meru Ridge Farm',
+    alt: 'Bundles of fresh leafy greens on display',
     coldChain: true,
   },
   {
@@ -167,7 +167,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['8 kg bunch', '18 kg crate'],
     freshness: '24h',
     image: `${P}/vegetable-basket.jpg`,
-    alt: 'Bunches of apple bananas in a harvest crate',
+    alt: 'A basket of freshly picked tomatoes, peppers, cucumber and celery',
   },
   {
     id: 'mango',
@@ -180,7 +180,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['6 kg carton', '12 kg carton'],
     freshness: '48h',
     image: `${F}/harvest-basket.jpg`,
-    alt: 'Apple mangoes packed at the Machakos Valley Farm',
+    alt: 'A woven basket of freshly harvested vegetables and fruit',
   },
   {
     id: 'passion',
@@ -193,7 +193,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['3 kg box', '8 kg box'],
     freshness: '48h',
     image: `${P}/chard-beetroot.jpg`,
-    alt: 'Purple passion fruit gathered in a box',
+    alt: 'Fresh greens and beetroot side by side at market',
   },
 
   // ── Herbs and Spices ─────────────────────────────────────────────────────
@@ -208,7 +208,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['1 kg bunch pack', '5 kg crate'],
     freshness: 'today',
     image: `${P}/fresh-leaves.jpg`,
-    alt: 'Fresh coriander bunches tied after harvest',
+    alt: 'Bundles of fresh leafy greens on display',
     coldChain: true,
   },
   {
@@ -222,7 +222,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['500 g punnet', '1 kg box'],
     freshness: 'today',
     image: `${F}/harvest-greens.jpg`,
-    alt: 'Sweet basil leaves cut for the restaurant trade',
+    alt: 'A farmer carrying a basket through leafy crops',
     coldChain: true,
   },
   {
@@ -236,7 +236,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['500 g pack', '2 kg box'],
     freshness: '48h',
     image: `${P}/chard-beetroot.jpg`,
-    alt: 'Sprigs of rosemary bundled for supply',
+    alt: 'Fresh greens and beetroot side by side at market',
   },
   {
     id: 'chilli',
@@ -249,7 +249,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['1 kg box', '5 kg box'],
     freshness: '48h',
     image: `${P}/vegetable-basket.jpg`,
-    alt: 'Bird\u2019s eye chillies in a shallow box',
+    alt: 'A basket of freshly picked tomatoes, peppers, cucumber and celery',
   },
 
   // ── Grains and Legumes ───────────────────────────────────────────────────
@@ -264,7 +264,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['25 kg bag', '50 kg bag', '90 kg bag'],
     freshness: '48h',
     image: `${F}/farm-field-aerial.webp`,
-    alt: 'Aerial view of maize field rows at the Machakos Valley Farm',
+    alt: 'Aerial view of cultivated farmland in the Kenyan highlands',
   },
   {
     id: 'beans-rosecoco',
@@ -277,7 +277,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['10 kg bag', '25 kg bag', '50 kg bag'],
     freshness: '48h',
     image: `${F}/field-rows.jpg`,
-    alt: 'Rows of bean crops on the farm',
+    alt: 'Rows of young crops on a working farm',
   },
   {
     id: 'green-grams',
@@ -290,7 +290,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['10 kg bag', '25 kg bag'],
     freshness: '48h',
     image: `${F}/farm-field-aerial.webp`,
-    alt: 'Green gram fields photographed from above',
+    alt: 'Aerial view of cultivated farmland in the Kenyan highlands',
   },
   {
     id: 'groundnuts',
@@ -303,7 +303,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['5 kg bag', '20 kg bag'],
     freshness: '48h',
     image: `${F}/field-rows.jpg`,
-    alt: 'Groundnut crop rows at harvest time',
+    alt: 'Rows of young crops on a working farm',
   },
 
   // ── Dairy ────────────────────────────────────────────────────────────────
@@ -318,7 +318,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['5 L jerrican', '20 L churn', '50 L churn'],
     freshness: 'today',
     image: `${F}/packhouse-grading.jpg`,
-    alt: 'Dairy produce being handled at the packhouse',
+    alt: 'Workers filling sacks with harvested crops on the farm',
     coldChain: true,
   },
   {
@@ -332,7 +332,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['500 ml tub', '5 L bucket'],
     freshness: '24h',
     image: `${F}/packhouse-grading.jpg`,
-    alt: 'Natural yoghurt tubs ready for dispatch',
+    alt: 'Workers filling sacks with harvested crops on the farm',
     coldChain: true,
   },
   {
@@ -346,7 +346,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['1 L jar', '5 L tin'],
     freshness: '48h',
     image: `${F}/harvest-basket.jpg`,
-    alt: 'Jars of farm ghee prepared for bulk buyers',
+    alt: 'A woven basket of freshly harvested vegetables and fruit',
   },
   {
     id: 'cream',
@@ -359,7 +359,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['1 L carton', '5 L carton'],
     freshness: 'today',
     image: `${F}/packhouse-grading.jpg`,
-    alt: 'Fresh cream cartons held in cold storage',
+    alt: 'Workers filling sacks with harvested crops on the farm',
     coldChain: true,
   },
 
@@ -375,7 +375,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['1 tray', '12 trays', 'Full crate (30 trays)'],
     freshness: 'today',
     image: `${F}/seedling-nursery.jpg`,
-    alt: 'Trays of farm eggs stacked for delivery',
+    alt: 'Young seedlings growing in soil-filled nursery trays',
     coldChain: true,
   },
   {
@@ -389,7 +389,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['5 kg box', '10 kg box'],
     freshness: 'today',
     image: `${F}/packhouse-grading.jpg`,
-    alt: 'Dressed poultry prepared in the packhouse',
+    alt: 'Workers filling sacks with harvested crops on the farm',
     coldChain: true,
   },
   {
@@ -403,7 +403,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['5 kg box', '10 kg box'],
     freshness: 'today',
     image: `${F}/harvest-basket.jpg`,
-    alt: 'Portioned chicken packed for hotel kitchens',
+    alt: 'A woven basket of freshly harvested vegetables and fruit',
     coldChain: true,
   },
   {
@@ -417,7 +417,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['6 kg box', '12 kg box'],
     freshness: '24h',
     image: `${F}/packhouse-grading.jpg`,
-    alt: 'Whole turkey prepared for the restaurant trade',
+    alt: 'Workers filling sacks with harvested crops on the farm',
     coldChain: true,
   },
 
@@ -433,7 +433,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['25 kg bag', '50 kg bag', '90 kg bag'],
     freshness: '24h',
     image: `${F}/soil-cultivation.jpg`,
-    alt: 'Irish potatoes lifted from Nakuru highland soil',
+    alt: 'Farmers working the soil with hand tools',
   },
   {
     id: 'sweet-potato',
@@ -446,7 +446,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['10 kg bag', '25 kg bag'],
     freshness: '24h',
     image: `${F}/soil-cultivation.jpg`,
-    alt: 'Orange-flesh sweet potatoes sorted after lifting',
+    alt: 'Farmers working the soil with hand tools',
   },
   {
     id: 'nduma',
@@ -459,7 +459,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['10 kg bag', '20 kg bag'],
     freshness: '48h',
     image: `${F}/field-rows.jpg`,
-    alt: 'Arrowroot tubers harvested and cleaned',
+    alt: 'Rows of young crops on a working farm',
   },
   {
     id: 'cassava',
@@ -472,7 +472,7 @@ export const PRODUCE: ProduceItem[] = [
     packSizes: ['20 kg bag', '50 kg bag'],
     freshness: '48h',
     image: `${F}/soil-cultivation.jpg`,
-    alt: 'Fresh cassava roots stacked after harvest',
+    alt: 'Farmers working the soil with hand tools',
   },
 ];
 
