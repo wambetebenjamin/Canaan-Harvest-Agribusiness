@@ -5,7 +5,7 @@ across Nairobi. Built for bulk buyers — supermarkets, hotels, restaurants and
 exporters — plus household subscription boxes and off-take agreements for
 farmers.
 
-**Next.js 15.5.27 App Router · TypeScript · Node 24.x · Vercel**
+**Next.js 16.4.0 App Router · TypeScript · Node 24.x · Vercel**
 
 ---
 

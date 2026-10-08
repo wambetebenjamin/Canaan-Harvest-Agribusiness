@@ -1,9 +1,0 @@
-{
-  "root": true,
-  "extends": ["next/core-web-vitals"],
-  "ignorePatterns": ["zip-source/", ".next/", "node_modules/", "public/"],
-  "rules": {
-    "react/no-unescaped-entities": "error",
-    "@next/next/no-img-element": "warn"
-  }
-}

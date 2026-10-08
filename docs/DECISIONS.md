@@ -14,7 +14,7 @@ routes, no npm dependencies, no build tooling**.
 
 **Resolution:** treated as a *design source* only. Design values (custom
 properties, type scale, component geometry, keyframes) are reproduced
-verbatim; everything structural is new Next.js 15 App Router code.
+verbatim; everything structural is new Next.js App Router code.
 Full inventory: `docs/ZIP-INSPECTION.md`.
 
 ---
@@ -214,15 +214,17 @@ single-file change. Documented in that file's header.
 ## 10. `next@15.1.0` carried CVE-2025-66478 (patched)
 
 **Finding:** Next 15.1.0 has published security vulnerabilities, including
-CVE-2025-66478 (React Server Components RCE). Vercel refuses/warns on deploy:
+CVE-2025-66478 (React Server Components RCE). Vercel refuses the deploy:
 *"Vulnerable version of Next.js detected, please update immediately."*
+A first bump to 15.5.27 still failed Vercel's GitHub check: React 19.0.0,
+`next-mdx-remote@5` and Next 15's bundled PostCSS remain flagged, and Next 15
+itself reaches end-of-life on 21 Oct 2026.
 
-**Resolution:** upgraded to **15.5.27** (latest patched 15.x as of 30 Sep 2026)
-and matching `eslint-config-next`. React remains 19.0.0 (still a valid peer of
-15.5.27); RSC protocol packages are bundled by Next itself. `allowedDevOrigins`
-is now set so the Arena preview host can reach `next dev`. App Router APIs in
-this codebase were already async (`params` / `searchParams` as Promises), so
-the jump from 15.1 → 15.5 needed no page-level changes.
+**Resolution:** upgraded to **Next 16.4.0** (current latest) with
+**React 19.3.0**, **next-mdx-remote 6.0.0**, **nodemailer 10.0.16**, and
+`eslint-config-next` 16.4.0 (ESLint 9 flat config; `next lint` is removed in
+16). App Router pages already awaited `params` / `searchParams`.
+`allowedDevOrigins` is set so the Arena preview host can reach `next dev`.
 
 ---
 
