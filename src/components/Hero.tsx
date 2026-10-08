@@ -93,7 +93,7 @@ export default function Hero() {
         <div className="hero-step hero-step--5">
           <Basket3D
             posterSrc="/photos/produce/vegetable-basket.jpg"
-            posterAlt="A woven basket filled with fresh Kenyan vegetables and fruit"
+            posterAlt="A basket of assorted fresh Kenyan vegetables"
           />
         </div>
       </div>

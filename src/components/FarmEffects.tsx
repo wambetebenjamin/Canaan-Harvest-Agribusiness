@@ -356,7 +356,7 @@ export function MixedMediaCollage() {
       <img
         className="effect16__photo"
         src="/photos/farm/soil-cultivation.jpg"
-        alt="Soil being cultivated on a Canaan Harvest partner farm"
+        alt="A farmer working the soil with a hoe on a partner farm"
         width={480}
         height={360}
         loading="lazy"

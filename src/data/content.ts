@@ -27,7 +27,7 @@ export const BOXES: ProduceBox[] = [
     pricePerWeek: 1500,
     serves: '1–3 people',
     image: '/photos/produce/fresh-leaves.jpg',
-    alt: 'A packed household box of fresh greens and vegetables',
+    alt: 'Fresh curly kale leaves growing in a garden bed',
     contents: [
       'Sukuma wiki — 1 kg',
       'Tomatoes — 1 kg',
@@ -44,7 +44,7 @@ export const BOXES: ProduceBox[] = [
     pricePerWeek: 2900,
     serves: '4–7 people',
     image: '/photos/produce/vegetable-basket.jpg',
-    alt: 'A family-sized box overflowing with Kenyan vegetables and fruit',
+    alt: 'Assorted fresh vegetables in a harvest basket',
     popular: true,
     contents: [
       'Sukuma wiki — 2 kg',
@@ -64,7 +64,7 @@ export const BOXES: ProduceBox[] = [
     pricePerWeek: 9600,
     serves: '30+ covers',
     image: '/photos/farm/harvest-basket.jpg',
-    alt: 'A catering-scale crate of sorted produce for a professional kitchen',
+    alt: 'A wicker basket of freshly picked vegetables carried through a field',
     contents: [
       'Sukuma wiki — 6 kg',
       'Tomatoes — 8 kg',
@@ -317,7 +317,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-09-18',
     readingTime: '7 min read',
     image: '/photos/blog/blog-1.jpg',
-    alt: 'Vegetables laid out at a Kenyan market',
+    alt: 'A vendor selling fresh produce at an outdoor market stall',
   },
   {
     slug: 'cold-chain-that-works',
@@ -328,7 +328,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-09-04',
     readingTime: '6 min read',
     image: '/photos/blog/blog-2.jpg',
-    alt: 'Produce being handled at a packhouse',
+    alt: 'A market vendor carrying fresh vegetables in a bucket',
   },
   {
     slug: 'managu-recipes',
@@ -339,7 +339,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-08-22',
     readingTime: '9 min read',
     image: '/photos/blog/blog-3.jpg',
-    alt: 'Fresh African leafy greens prepared for cooking',
+    alt: 'A woman cooking over a large pot outdoors',
   },
   {
     slug: 'contract-farming-explained',
@@ -350,7 +350,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-08-08',
     readingTime: '8 min read',
     image: '/photos/blog/blog-4.jpg',
-    alt: 'A farmer inspecting a crop held under contract',
+    alt: 'A farmer inspecting young crops in a field',
   },
   {
     slug: 'water-smart-irrigation',
@@ -361,7 +361,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-07-25',
     readingTime: '7 min read',
     image: '/photos/blog/blog-5.jpg',
-    alt: 'Irrigation lines running through a vegetable field',
+    alt: 'An overhead irrigation system watering a crop field',
   },
   {
     slug: 'feeding-a-nairobi-restaurant',
@@ -372,7 +372,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-07-11',
     readingTime: '6 min read',
     image: '/photos/blog/blog-6.jpg',
-    alt: 'A chef working with freshly delivered produce',
+    alt: 'A chef preparing fresh ingredients in a kitchen',
   },
 ];
 

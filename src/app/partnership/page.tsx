@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description:
       'We only plant against confirmed demand. Join the network and your harvest has a buyer before the seed goes in the ground.',
     url: `${SITE.url}/partnership`,
-    images: [{ url: '/photos/farm/seedlings-planted.jpg', width: 1200, height: 630, alt: 'Seedlings planted on a Kenyan farm' }],
+    images: [{ url: '/photos/farm/seedlings-planted.jpg', width: 1200, height: 630, alt: 'A farmer planting out young crops on a prepared seedbed' }],
   },
 };
 

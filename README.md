@@ -25,7 +25,7 @@ npm run dev                    # http://localhost:3000
 npm run build      # production build
 npm start          # serve the production build
 npm run typecheck  # tsc --noEmit
-npm run fetch:photos   # helper for the image swap (see docs)
+npm run fetch:photos   # re-download the Pexels photo set (see docs)
 ```
 
 ### Environment
@@ -91,8 +91,9 @@ src/
 │                               captcha-server · submit · codes
 └── styles/                     11 stylesheets + tokens
 content/blog/                   6 MDX articles
-public/photos/                  placeholder imagery — see image-credits.md
+public/photos/                  Pexels photography — see image-credits.md
 public/favicon.svg · icons/     brand icons + wordmark.svg
+scripts/fetch-photos.mjs        re-downloads the Pexels photo set
 scripts/make-sprite.mjs         generates the EFFECT-31 sprite sheet
 scripts/make-icons.mjs          generates favicon, touch icon, maskable icon
 docs/                           see documentation index below
@@ -101,12 +102,20 @@ docs/                           see documentation index below
 ### Regenerating assets
 
 ```bash
-node scripts/make-icons.mjs     # favicon.svg/png, apple-touch-icon, icon-512, wordmark.svg
-node scripts/make-sprite.mjs    # EFFECT-31 stop-motion sprite sheet
+node scripts/make-icons.mjs        # favicon.svg/png, apple-touch-icon, icon-512, wordmark.svg
+node scripts/make-sprite.mjs       # EFFECT-31 stop-motion sprite sheet
+npm run fetch:photos -- --list     # print the photo manifest, download nothing
+npm run fetch:photos               # re-download any missing Pexels photograph
 ```
 
-Both are deterministic and write into `public/`; the outputs are committed so a
-plain `npm install && npm run build` needs neither.
+The two generators are deterministic and write into `public/`; their outputs
+are committed, so a plain `npm install && npm run build` needs neither.
+
+`fetch:photos` is the only script that talks to the network. The committed
+photographs are already in the repository, so it is a maintenance tool — use it
+to replace a slot, or to prove where a file came from. It needs no image
+library: cropping is delegated to the Pexels CDN at the exact pixel size each
+slot declares. See `docs/image-credits.md`.
 
 ---
 
@@ -198,18 +207,20 @@ Verified at **1440 / 1024 / 768 / 390 / 320 px**.
 | `docs/EFFECTS.md` | Every implemented effect with its reduced-motion fallback and file ownership, plus the 20/22/30 gap note. |
 | `docs/FONT-LICENSING.md` | Font provenance, OFL licensing, and why Marcellus 400-only matters. |
 | `docs/PHOTO-SHOT-LIST.md` | Every image slot, subject requirement, aspect ratio and the brief's search terms. |
-| `docs/image-credits.md` | **Photography is temporary placeholder material.** Provenance, licence and the known mismatch. |
+| `docs/image-credits.md` | Photographer, licence and subject for all 27 photographs, the known subject-matter gaps, and the stock-model disclosure. |
 
 ---
 
 ## ⚠️ Before production
 
-1. **Replace the photography.** Current images are template placeholders with
-   European subjects and do not meet the brief's "East African farmers and
-   produce settings" requirement. Start with the testimonial avatars — European
-   portraits are currently attached to East African personas.
-2. **Replace the testimonials** or confirm they are genuine. They are currently
-   illustrative content, not real customer reviews.
+1. **Replace the testimonials** or confirm they are genuine. They are
+   currently illustrative content, not real customer reviews, and the portraits
+   attached to them are stock models — two of whom stand in for six named
+   personas. See `docs/image-credits.md`.
+2. **Consider a stronger packhouse photo.** `farm/packhouse-grading.jpg` is the
+   one farm image whose subject is not African; Pexels' supply for that slot is
+   thin. It is the only photographic item left on the on-brief list — see the
+   gap table in `docs/image-credits.md`.
 3. **Set `RECAPTCHA_SECRET_KEY`** — without it, forms are unverified.
 4. **Wire the real integrations** — Vercel KV, Blob, Daraja, SMTP, WhatsApp
    Business. See `.env.example`.

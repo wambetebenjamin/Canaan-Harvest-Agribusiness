@@ -135,23 +135,44 @@ a garden centre) and therefore also fails the "East African" requirement.
 Three options were offered; the user chose **use the zip's photos as clearly
 documented stand-ins**.
 
-**Resolution:**
-- Template imagery copied into `public/photos/` with semantic filenames.
-- `docs/image-credits.md` states in its first line that the photography is
-  **temporary placeholder material**, maps every file back to its original
-  template path, and flags that it **does not meet the brief's subject-matter
-  requirement**.
-- `docs/PHOTO-SHOT-LIST.md` gives every slot, the brief's approved search
-  terms, correct aspect ratios and technical requirements, so the swap is
-  mechanical (keep the filenames).
-- Remote patterns for `images.pexels.com` and `images.unsplash.com` are already
-  configured in `next.config.mjs`.
-- The testimonial avatars are the **highest-priority** replacement: European
-  stock portraits are currently attached to fictional East African personas,
-  and `image-credits.md` says so plainly.
+**Resolution (interim):** template imagery copied into `public/photos/` with
+semantic filenames, and `docs/PHOTO-SHOT-LIST.md` written as a mechanical
+swap-in spec — every slot, its subject requirement, its aspect ratio, and the
+brief's approved search terms.
+
+**Resolution (final, 2026-10-08):** the swap is complete. All **27 slots** now
+hold real Pexels photography of East African farmers, produce and market
+settings, and the template imagery is gone from the repository.
+
+`images.pexels.com` is still unreachable from this build environment. The
+photographs were therefore obtained through the image-search channel, which
+returns Pexels-hosted originals, and each one's photographer and canonical
+photo page were verified against Pexels before use. `scripts/fetch-photos.mjs`
+now records the whole set as a manifest — Pexels id, photographer, target slot
+and exact pixel size — so it can be re-downloaded from `images.pexels.com`
+directly wherever that host *is* reachable. `npm run fetch:photos` had been
+referenced by `package.json` and the README from the beginning but the script
+did not exist; it does now.
+
+Two consequences worth recording:
+
+1. **Every slot was re-cut to the ratio the code already declared.** Several
+   farm files had been copied from the template at the template's own ratios
+   (square where the markup said `640×400`, 2.24:1 where the OG card declares
+   1200×630). Alt text was likewise rewritten to describe *the photograph*,
+   because 28 catalogue lines share 13 images — an alt reading "Hass avocados
+   harvested at the Meru Ridge Farm" over a picture of kale is worse for a
+   screen-reader user than no alt at all.
+2. **The set is not perfectly on-brief and `docs/image-credits.md` says so.**
+   `farm/packhouse-grading.jpg` shows a non-African packing crew: Pexels'
+   searchable supply of African packhouse photography is thin, and the slot's
+   primary requirement — produce being graded with crates visible — is met.
+   That is recorded as a known gap alongside the fixes, not smoothed over.
 
 **The testimonials are illustrative content, not real reviews.** They must not
-be presented as genuine customer feedback in a live deployment.
+be presented as genuine customer feedback in a live deployment. The four
+avatars are stock models, and two of them stand in for six named personas —
+both facts are stated at the top of `docs/image-credits.md`.
 
 ---
 

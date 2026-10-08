@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'Farm Stories | Canaan Harvest Agribusiness',
     description: 'Ten things that happen on a Canaan farm, from seedling to delivery.',
     url: `${SITE.url}/farm-stories`,
-    images: [{ url: '/photos/farm/farmer-harvest-kale.jpg', width: 1200, height: 630, alt: 'A Kenyan farmer with a harvest of kale' }],
+    images: [{ url: '/photos/farm/farmer-harvest-kale.jpg', width: 1200, height: 630, alt: 'A farmer walking through a field of green crops' }],
   },
 };
 

@@ -69,7 +69,7 @@ export const metadata: Metadata = {
         url: '/photos/farm/farm-field-aerial.webp',
         width: 1200,
         height: 630,
-        alt: 'Nakuru highlands farm fields at Canaan Harvest Agribusiness',
+        alt: 'Patchwork farm fields in Mau Narok, Nakuru County, Kenya',
       },
     ],
   },
