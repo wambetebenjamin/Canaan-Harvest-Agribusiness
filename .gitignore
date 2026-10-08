@@ -1,0 +1,31 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# ── Environment ───────────────────────────────────────────────
+.env
+.env.local
+.env*.local
+
+# ── Source zip is a design reference, not shipped code ────────
+zip-source/
+*.zip
+
+# ── Local dev fallback storage (mirrors Vercel KV / Blob) ─────
+.data/
+
+# ── OS / editor ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+next-env.d.ts
+*.tsbuildinfo
+
+# ── Runtime write target for the local Blob fallback ──────────
+# src/lib/blob.ts writes uploads here when BLOB_READ_WRITE_TOKEN is
+# absent. Contents are user-supplied and must never be committed.
+public/uploads/

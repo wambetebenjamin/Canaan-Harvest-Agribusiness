@@ -1,0 +1,275 @@
+/* ============================================================================
+   EFFECT-02 — PINNED SCROLLYTELLING PRODUCE JOURNEY (4 beats)
+   IntersectionObserver driven. Never hijacks wheel speed: the scroll
+   container stays native, only a sticky visual panel tracks progress.
+   Flattens to a plain stacked article under reduced-motion.
+   ========================================================================= */
+
+.journey {
+  position: relative;
+  background: var(--surface-color);
+}
+
+.journey__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+@media (min-width: 1024px) {
+  .journey__grid {
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: 56px;
+    align-items: start;
+  }
+}
+
+/* ── Sticky visual panel ──────────────────────────────────────────────── */
+
+.journey__sticky {
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  border-radius: 20px;
+  background: linear-gradient(
+    158deg,
+    color-mix(in srgb, var(--accent-color), white 93%),
+    color-mix(in srgb, var(--accent-color), white 98%)
+  );
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%);
+  min-height: 320px;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .journey__sticky {
+    position: sticky;
+    top: 112px; /* clears the sticky header */
+    min-height: 440px;
+  }
+}
+
+.journey__scene {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.journey__panel {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
+  pointer-events: none;
+}
+
+.journey__panel[data-active='true'] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.journey__panel svg {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  overflow: visible;
+}
+
+.journey__step-num {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--heading-font);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  background: var(--surface-color);
+  border: 1px solid var(--accent-30);
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Progress rail beside the sticky panel (desktop only) */
+.journey__rail {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .journey__rail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    align-self: stretch;
+  }
+}
+
+.journey__rail-dot {
+  width: 3px;
+  flex: 1 1 auto;
+  min-height: 34px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+  overflow: hidden;
+  position: relative;
+}
+
+.journey__rail-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-color);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 420ms var(--ease-out);
+}
+
+.journey__rail-dot[data-past='true']::after {
+  transform: scaleY(1);
+}
+
+/* ── Beats ────────────────────────────────────────────────────────────── */
+
+.journey__beats {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+@media (min-width: 1024px) {
+  .journey__beats {
+    gap: 0;
+  }
+}
+
+.journey__beat {
+  position: relative;
+  padding: 24px 26px 24px 30px;
+  border-radius: 14px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 93%);
+  transition: border-color 320ms var(--ease-out), box-shadow 320ms var(--ease-out),
+    background-color 320ms var(--ease-out);
+}
+
+@media (min-width: 1024px) {
+  .journey__beat {
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: transparent;
+    border-color: transparent;
+    border-left: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
+    border-radius: 0;
+    padding: 40px 30px;
+  }
+
+  .journey__beat[data-active='true'] {
+    border-left-color: var(--accent-color);
+    background: color-mix(in srgb, var(--accent-color), transparent 96%);
+  }
+}
+
+.journey__beat-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-90);
+  color: var(--accent-color);
+  font-family: var(--heading-font);
+  font-size: 15px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+  transition: background-color 320ms var(--ease-out), color 320ms var(--ease-out);
+}
+
+.journey__beat[data-active='true'] .journey__beat-num {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+.journey__beat h3 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.journey__beat p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--default-color), transparent 28%);
+  margin: 0;
+  max-width: 48ch;
+}
+
+.journey__beat-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--default-50);
+}
+
+.journey__beat-meta svg {
+  color: var(--accent-color);
+}
+
+/* ── Reduced motion → plain stacked article, no pinning ───────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .journey__sticky {
+    position: static;
+    min-height: 240px;
+  }
+
+  .journey__panel {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    pointer-events: auto;
+    position: static;
+    grid-area: auto;
+  }
+
+  /* All four scenes stack vertically as plain article figures. */
+  .journey__scene {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+    aspect-ratio: auto;
+  }
+
+  .journey__panel[data-active='false'] {
+    display: none;
+  }
+
+  .journey__rail {
+    display: none;
+  }
+
+  .journey__beat {
+    border-left-color: color-mix(in srgb, var(--default-color), transparent 92%);
+    background: transparent;
+  }
+
+  .journey__beats {
+    gap: 26px;
+  }
+}

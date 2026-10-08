@@ -1,0 +1,104 @@
+/* ============================================================================
+   REDUCED MOTION — master policy for every implemented effect
+   ----------------------------------------------------------------------------
+   Every effect gets an explicit, non-degraded static or plain-document
+   fallback. Nothing is merely "made faster"; motion is removed and the
+   content it conveyed is preserved. Per-effect detail lives beside each
+   effect; this file holds the global guarantees and the effects whose
+   fallback is structural.
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Global guarantee: no infinite/decorative animation escapes. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  /* NOTE: EFFECT-20 / 22 / 30 are not defined in the build brief and are
+     deliberately left unclaimed. See docs/EFFECTS.md. */
+
+  /* EFFECT-15 → the scroll-snap rail becomes a plain wrapped grid. */
+  .rail {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    overflow: visible;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+
+  .rail__chip {
+    scroll-snap-align: none;
+    white-space: normal;
+    justify-content: flex-start;
+  }
+
+  .rail-nav {
+    display: none !important;
+  }
+
+  /* EFFECT-26 → reveal panel is always visible instead of hover-gated,
+     so keyboard, touch and reduced-motion users all see price + farm. */
+  .produce-card__reveal {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: transparent;
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  }
+
+  .produce-card__reveal-toggle {
+    display: none !important;
+  }
+
+  .produce-card:hover {
+    transform: none;
+  }
+
+  .produce-card__media img,
+  .produce-card:hover .produce-card__media img {
+    transform: none !important;
+  }
+
+  /* EFFECT-28 → glass stays, but the header no longer animates size. */
+  .header,
+  .header[data-scrolled='true'] {
+    transition: none;
+  }
+}
+
+/* ── Contract note ────────────────────────────────────────────────────────
+   Effects whose fallbacks are declared with their own rules:
+     EFFECT-01  posters instead of the WebGL canvas      → hero.css + Basket3D
+     EFFECT-02  stacked article, no pinning              → journey.css
+     EFFECT-04  letters render complete, no glitch       → hero.css
+     EFFECT-06  leaf layer hidden                        → hero.css
+     EFFECT-07  static growth lines                      → effects.css
+     EFFECT-08  strokes drawn and held                   → effects.css
+     EFFECT-09  three shapes crossfade, no morph tween   → MorphCycle.tsx
+     EFFECT-13  static mascot pose                       → effects.css
+     EFFECT-14  flat crate, no perspective               → effects.css
+     EFFECT-16  collage held static                      → effects.css
+     EFFECT-17  blob held, no morph loop                 → effects.css
+     EFFECT-18  gradient pinned, no background-position  → hero.css
+     EFFECT-19  isometric fully assembled                → effects.css
+     EFFECT-21  doodle drawn, no re-draw                 → effects.css
+     EFFECT-23  entrance skipped, content immediately on → hero.css
+     EFFECT-24  flat grey skeletons, no shimmer          → produce.css
+     EFFECT-25  static seedling + plain percentage text  → preloader.css
+     EFFECT-27  pressed states remain, no timing ramps   → produce.css
+     EFFECT-29  clay press is instant, no transform      → forms.css
+     EFFECT-31  sprite holds its first frame             → effects.css
+   ───────────────────────────────────────────────────────────────────── */

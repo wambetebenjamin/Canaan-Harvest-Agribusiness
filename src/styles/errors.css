@@ -1,0 +1,151 @@
+/* ============================================================================
+   ERROR PAGES — EFFECT-17 (404 liquid blob spill) and the branded 500
+   The blob uses the SAME bounded SVG filter as farm card 7 (see
+   GooFilterDefs). The filter is applied only to decorative shapes — never to
+   text, which sits on its own layer above.
+   ========================================================================= */
+
+.error-page {
+  position: relative;
+  min-height: 78vh;
+  display: grid;
+  place-items: center;
+  overflow: clip;
+  isolation: isolate;
+  padding: 64px 20px;
+}
+
+/* ── EFFECT-17 — liquid blob spill ────────────────────────────────────── */
+
+.error-page__blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* Bounded filter region: the goo can never escape this box, so it cannot
+     spill over the surrounding chrome or the text layer above. */
+  overflow: hidden;
+  filter: url(#goo-filter);
+  pointer-events: none;
+}
+
+.error-page__blob {
+  position: absolute;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent-color), transparent 62%);
+  animation: blob-spill 9s ease-in-out infinite alternate;
+}
+
+.error-page__blob--1 {
+  width: 260px;
+  height: 260px;
+  left: 8%;
+  top: 18%;
+}
+
+.error-page__blob--2 {
+  width: 190px;
+  height: 190px;
+  right: 14%;
+  top: 28%;
+  animation-delay: 1.2s;
+}
+
+.error-page__blob--3 {
+  width: 300px;
+  height: 300px;
+  left: 42%;
+  bottom: 6%;
+  animation-delay: 2.4s;
+}
+
+.error-page__blob--4 {
+  width: 150px;
+  height: 150px;
+  right: 32%;
+  bottom: 20%;
+  animation-delay: 3.1s;
+}
+
+@keyframes blob-spill {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(34px, -26px, 0) scale(1.22);
+  }
+}
+
+/* ── Content layer — always above the blob, never filtered ────────────── */
+
+.error-page__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 640px;
+}
+
+.error-page__code {
+  font-family: var(--heading-font);
+  font-size: 88px;
+  line-height: 1;
+  color: var(--accent-color);
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .error-page__code {
+    font-size: 60px;
+  }
+}
+
+.error-page__title {
+  font-size: 36px;
+  font-weight: 500;
+  margin: 0 0 14px;
+  color: var(--heading-color);
+}
+
+@media (max-width: 768px) {
+  .error-page__title {
+    font-size: 26px;
+  }
+}
+
+.error-page__body {
+  font-size: 16px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--default-color), transparent 22%);
+  margin: 0 0 26px;
+}
+
+.error-page__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.error-page__help {
+  margin-top: 30px;
+  font-size: 14px;
+  color: var(--default-50);
+}
+
+.error-page__help a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .error-page__blob {
+    animation: none;
+  }
+
+  .error-page__blobs {
+    opacity: 0.6;
+  }
+}

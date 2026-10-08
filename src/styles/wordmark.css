@@ -1,0 +1,83 @@
+/* ============================================================================
+   EFFECT-08 — self-drawing wordmark
+   Shared by the preloader, the nav logo, farm story card 2, the 404 page and
+   the footer. Stroke lengths arrive as --len from WordmarkDraw.tsx, measured
+   at runtime via getTotalLength() / getComputedTextLength().
+   ========================================================================= */
+
+.wordmark {
+  display: inline-block;
+  color: var(--accent-color);
+}
+
+.wordmark svg {
+  display: block;
+  overflow: visible;
+}
+
+.wordmark svg path,
+.wordmark svg circle,
+.wordmark svg line,
+.wordmark svg polyline,
+.wordmark svg text {
+  stroke-dasharray: var(--len, 400);
+  stroke-dashoffset: var(--len, 400);
+}
+
+/* Draw once, then hold the completed state. */
+.wordmark svg[data-draw='run'] path,
+.wordmark svg[data-draw='run'] circle,
+.wordmark svg[data-draw='run'] line,
+.wordmark svg[data-draw='run'] polyline {
+  animation: wordmark-draw var(--draw-duration, 1.1s) var(--ease-out) both;
+}
+
+/* Staggered ladder so the mark, then the lettering, arrive in order. */
+.wordmark svg[data-draw='run'] circle {
+  animation-delay: 0ms;
+}
+
+.wordmark svg[data-draw='run'] path:nth-of-type(1) {
+  animation-delay: 120ms;
+}
+
+.wordmark svg[data-draw='run'] path:nth-of-type(2) {
+  animation-delay: 240ms;
+}
+
+.wordmark svg[data-draw='run'] path:nth-of-type(3) {
+  animation-delay: 340ms;
+}
+
+.wordmark svg[data-draw='run'] text {
+  animation: wordmark-draw var(--draw-duration, 1.1s) var(--ease-out) both;
+  animation-delay: 420ms;
+}
+
+.wordmark svg[data-draw='run'] text:last-of-type {
+  animation-delay: 620ms;
+}
+
+@keyframes wordmark-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Reduced motion — drawn and held, no animation ─────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark svg path,
+  .wordmark svg circle,
+  .wordmark svg line,
+  .wordmark svg polyline,
+  .wordmark svg text,
+  .wordmark svg[data-draw='run'] path,
+  .wordmark svg[data-draw='run'] circle,
+  .wordmark svg[data-draw='run'] line,
+  .wordmark svg[data-draw='run'] polyline,
+  .wordmark svg[data-draw='run'] text {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

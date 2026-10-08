@@ -1,0 +1,257 @@
+/* ============================================================================
+   Canaan Harvest Agribusiness — DESIGN SOURCE TOKENS
+   ----------------------------------------------------------------------------
+   Sections 1–6 below are transcribed VERBATIM from the design source:
+       AgriCulture-v1.0.0 / assets / css / main.css
+   Lines 10–59 of that file, reproduced byte-for-byte, including the
+   double-space inside the font stacks and the original inline comments.
+
+   DO NOT ALTER. Font family, weight and size are sacred.
+   ========================================================================= */
+
+/*--------------------------------------------------------------
+# 1. Font & Color Variables
+# Source: main.css L13–18
+--------------------------------------------------------------*/
+/* Fonts */
+:root {
+  --default-font: "Open Sans",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Marcellus",  sans-serif;
+  --nav-font: "Marcellus",  sans-serif;
+}
+
+/* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+:root {
+  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+  --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #2d465e; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #116530; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
+/* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
+:root {
+  --nav-color: #212529;  /* The default color of the main navmenu links */
+  --nav-hover-color: #116530; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
+  --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #116530; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+}
+
+/*--------------------------------------------------------------
+# 2. Color Presets
+# Source: main.css L41–55 — verbatim
+--------------------------------------------------------------*/
+.light-background {
+  --background-color: #f9f9f9;
+  --surface-color: #ffffff;
+}
+
+.dark-background {
+  --background-color: #060606;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --accent-color: #2ea359;
+  --surface-color: #252525;
+  --contrast-color: #ffffff;
+}
+
+/*--------------------------------------------------------------
+# 3. Smooth scroll
+# Source: main.css L57–59 — verbatim
+--------------------------------------------------------------*/
+:root {
+  scroll-behavior: smooth;
+}
+
+/*--------------------------------------------------------------
+# 4. Form feedback palette
+# Source: main.css L94–141 (the .php-email-form three-state pattern)
+# The zip's only form feedback colour pair, carried over verbatim.
+--------------------------------------------------------------*/
+:root {
+  --form-error-bg: #df1529;
+  --form-success-bg: #059652;
+  --form-error-fg: #ffffff;
+  --form-success-fg: #ffffff;
+}
+
+/*--------------------------------------------------------------
+# 5. Layout rhythm
+# Source: main.css — section/.section, .page-title, .section-title
+--------------------------------------------------------------*/
+:root {
+  --section-padding-y: 60px;
+  --section-scroll-margin: 100px;
+  --section-scroll-margin-sm: 66px;
+  --page-title-padding-y: 80px;
+  --section-title-padding-bottom: 60px;
+  --header-padding-y: 20px;
+  --header-logo-max-height: 40px;
+  --container-max: 1200px;
+}
+
+/*--------------------------------------------------------------
+# 6. Radius + motion from the zip's own components
+# Every value here is lifted from a real rule in main.css.
+--------------------------------------------------------------*/
+:root {
+  --radius-pill: 50px;   /* .hero .btn-get-started */
+  --radius-sm: 4px;      /* .scroll-top, .footer .social-links a */
+  --radius-md: 6px;      /* .navmenu ul (mobile panel) */
+  --radius-lg: 12px;     /* additive — card surfaces */
+
+  --transition-fast: 0.3s;   /* the zip's default transition */
+  --transition-med: 0.4s;    /* .scroll-top */
+  --transition-slow: 0.5s;   /* .header, .hero .btn-get-started */
+  --transition-fade: 0.6s;   /* #preloader */
+  --ease-out: ease-out;
+
+  --preloader-size: 60px;
+  --preloader-border: 6px;
+  --preloader-spin: 1.5s;
+}
+
+/* ============================================================================
+   ADDITIVE TOKENS
+   ----------------------------------------------------------------------------
+   The design source contains NONE of these. Each is derived strictly from a
+   value already present in the zip (its accent, its background, its own
+   color-mix percentage steps) so the effects stay on-palette. Nothing here
+   overrides a source token.
+   ========================================================================= */
+
+/*--------------------------------------------------------------
+# 7. Derived accent steps
+# Mirror of the zip's own color-mix() percentage ladder:
+# 20 / 25 / 30 / 50 / 60 / 75 / 85 / 90 / 92 %
+--------------------------------------------------------------*/
+:root {
+  --accent-20: color-mix(in srgb, var(--accent-color), transparent 20%);
+  --accent-25: color-mix(in srgb, var(--accent-color), transparent 25%);
+  --accent-30: color-mix(in srgb, var(--accent-color), transparent 30%);
+  --accent-50: color-mix(in srgb, var(--accent-color), transparent 50%);
+  --accent-60: color-mix(in srgb, var(--accent-color), transparent 60%);
+  --accent-75: color-mix(in srgb, var(--accent-color), transparent 75%);
+  --accent-85: color-mix(in srgb, var(--accent-color), transparent 85%);
+  --accent-90: color-mix(in srgb, var(--accent-color), transparent 90%);
+  --accent-92: color-mix(in srgb, var(--accent-color), transparent 92%);
+
+  --default-50: color-mix(in srgb, var(--default-color), transparent 50%);
+  --default-60: color-mix(in srgb, var(--default-color), transparent 60%);
+  --default-30: color-mix(in srgb, var(--default-color), transparent 30%);
+  --default-85: color-mix(in srgb, var(--default-color), transparent 85%);
+  --default-90: color-mix(in srgb, var(--default-color), transparent 90%);
+  --default-92: color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+/*--------------------------------------------------------------
+# 8. Glassmorphic nav — EFFECT-28
+# Blur hard-capped at 20px per brief.
+--------------------------------------------------------------*/
+:root {
+  --glass-blur: 20px;              /* cap per EFFECT-28 */
+  --glass-blur-sm: 12px;
+  --glass-bg: color-mix(in srgb, var(--background-color), transparent 22%);
+  --glass-border: color-mix(in srgb, var(--default-color), transparent 88%);
+  --glass-fallback-bg: color-mix(in srgb, var(--background-color), transparent 3%);
+  --glass-shadow: 0 1px 0 0 color-mix(in srgb, var(--default-color), transparent 92%),
+                  0 8px 32px -12px color-mix(in srgb, var(--default-color), transparent 82%);
+  --glass-scroll-threshold: 80px; /* EFFECT-28 */
+  --scroll-marker-threshold: 100px; /* the zip's original .scrolled toggle, preserved */
+}
+
+/*--------------------------------------------------------------
+# 9. Claymorphism — EFFECT-29 submit button
+# Built from the accent at the zip's own 30/75% ladder.
+# Both light and dark shadow legs so it reads as extruded clay.
+--------------------------------------------------------------*/
+:root {
+  --clay-shadow:
+    -4px -4px 10px color-mix(in srgb, var(--accent-color), white 42%),
+    6px 8px 18px color-mix(in srgb, var(--accent-color), transparent 62%),
+    inset 1px 1px 1px color-mix(in srgb, var(--accent-color), white 30%),
+    inset -2px -2px 4px color-mix(in srgb, var(--accent-color), black 22%);
+  --clay-shadow-pressed:
+    inset 4px 4px 10px color-mix(in srgb, var(--accent-color), black 30%),
+    inset -3px -3px 8px color-mix(in srgb, var(--accent-color), white 16%),
+    0 1px 2px color-mix(in srgb, var(--accent-color), transparent 70%);
+  --clay-radius: 18px;
+}
+
+/*--------------------------------------------------------------
+# 10. Neumorphism — EFFECT-27 freshness widget
+# Dual box-shadows: light leg from the surface, dark leg from the
+# zip's own default-color at the 85/90/92% ladder.
+--------------------------------------------------------------*/
+:root {
+  --neu-bg: #eef1ee;
+  --neu-light: color-mix(in srgb, var(--surface-color), white 60%);
+  --neu-dark: color-mix(in srgb, var(--default-color), transparent 86%);
+  --neu-shadow-raised:
+    -6px -6px 12px var(--neu-light),
+    6px 6px 14px var(--neu-dark);
+  --neu-shadow-raised-sm:
+    -3px -3px 7px var(--neu-light),
+    3px 3px 8px var(--neu-dark);
+  --neu-shadow-inset:
+    inset -4px -4px 9px var(--neu-light),
+    inset 4px 4px 9px var(--neu-dark);
+  --neu-radius: 14px;
+}
+
+/*--------------------------------------------------------------
+# 11. Motion budget for the implemented effects
+# Every duration sits inside the range the brief allows.
+--------------------------------------------------------------*/
+:root {
+  --dur-icon: 300ms;      /* EFFECT-11: 180–420ms */
+  --dur-reveal: 200ms;    /* EFFECT-26: 150–400ms */
+  --dur-reveal-long: 340ms;
+  --dur-hover: 180ms;
+  --dur-focus: 220ms;
+  --dur-field: 120ms;     /* EFFECT-12: 120–320ms */
+  --dur-field-slow: 320ms;
+  --dur-entry: 1400ms;    /* EFFECT-23: whole sequence < 1.6s */
+  --dur-entry-step: 130ms;
+  --dur-gradient: 24s;    /* EFFECT-18 slow backdrop */
+  --dur-drift: 26s;       /* EFFECT-06 leaf particles */
+  --pulse-interval: 10s;  /* WhatsApp pulse */
+
+  --stagger-step: 70ms;   /* per-letter / per-card stagger */
+}
+
+/*--------------------------------------------------------------
+# 12. Focus ring
+# Always visible, including over backdrop-filter blur (EFFECT-28).
+--------------------------------------------------------------*/
+:root {
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--accent-color);
+  --focus-ring-halo: 0 0 0 6px color-mix(in srgb, var(--accent-color), transparent 62%);
+}
+
+/*--------------------------------------------------------------
+# 13. Touch target floor
+# Brief: every interactive target ≥ 48 × 48px.
+--------------------------------------------------------------*/
+:root {
+  --tap-min: 48px;
+}
+
+/*--------------------------------------------------------------
+# 14. Z-index ladder
+# Preserves the zip's own values where it had them.
+--------------------------------------------------------------*/
+:root {
+  --z-header: 997;        /* the zip's .header */
+  --z-mobile-nav: 9997;   /* the zip's .navmenu */
+  --z-mobile-panel: 9998; /* the zip's .navmenu ul */
+  --z-scroll-top: 99999;  /* the zip's .scroll-top */
+  --z-overlay: 90000;
+  --z-preloader: 999999;  /* the zip's #preloader */
+  --z-skip-link: 1000000;
+}
