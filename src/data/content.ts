@@ -27,7 +27,7 @@ export const BOXES: ProduceBox[] = [
     pricePerWeek: 1500,
     serves: '1–3 people',
     image: '/photos/produce/fresh-leaves.jpg',
-    alt: 'A packed household box of fresh greens and vegetables',
+    alt: 'Bundles of fresh leafy greens on display',
     contents: [
       'Sukuma wiki — 1 kg',
       'Tomatoes — 1 kg',
@@ -44,7 +44,7 @@ export const BOXES: ProduceBox[] = [
     pricePerWeek: 2900,
     serves: '4–7 people',
     image: '/photos/produce/vegetable-basket.jpg',
-    alt: 'A family-sized box overflowing with Kenyan vegetables and fruit',
+    alt: 'A basket of freshly picked tomatoes, peppers, cucumber and celery',
     popular: true,
     contents: [
       'Sukuma wiki — 2 kg',
@@ -64,7 +64,7 @@ export const BOXES: ProduceBox[] = [
     pricePerWeek: 9600,
     serves: '30+ covers',
     image: '/photos/farm/harvest-basket.jpg',
-    alt: 'A catering-scale crate of sorted produce for a professional kitchen',
+    alt: 'A woven basket of freshly harvested vegetables and fruit',
     contents: [
       'Sukuma wiki — 6 kg',
       'Tomatoes — 8 kg',
@@ -234,7 +234,7 @@ export const TESTIMONIALS: Testimonial[] = [
     business: 'Procurement Lead, Kilimani Kitchen',
     ordered: 'Sukuma wiki, tomatoes, hoho — weekly',
     image: '/photos/people/testimonial-1.jpg',
-    alt: 'Chef Alice Wanjiru',
+    alt: 'A woman in a business suit smiling',
     stars: 5,
   },
   {
@@ -245,7 +245,7 @@ export const TESTIMONIALS: Testimonial[] = [
     business: 'Executive Chef, Westlands Grill House',
     ordered: 'Managu, dhania, basil — twice weekly',
     image: '/photos/people/testimonial-2.jpg',
-    alt: 'Chef Samuel Otieno',
+    alt: 'Chefs cooking over an open flame in a professional kitchen',
     stars: 5,
   },
   {
@@ -256,7 +256,7 @@ export const TESTIMONIALS: Testimonial[] = [
     business: 'Group Procurement, Rift Valley Hotels',
     ordered: 'Mixed vegetables, potatoes, fruit — weekly',
     image: '/photos/people/testimonial-3.jpg',
-    alt: 'Grace Nyambura',
+    alt: 'A woman in a dark blazer smiling',
     stars: 5,
   },
   {
@@ -267,7 +267,7 @@ export const TESTIMONIALS: Testimonial[] = [
     business: 'Farm Partner, Machakos Valley',
     ordered: 'Green grams, cassava — season contract',
     image: '/photos/people/testimonial-4.jpg',
-    alt: 'Peter Kilonzo',
+    alt: 'A smiling farmer in a cap among his crops',
     stars: 5,
   },
   {
@@ -278,7 +278,7 @@ export const TESTIMONIALS: Testimonial[] = [
     business: 'Export Manager, Coast Fresh Traders',
     ordered: 'Avocado, passion fruit — export',
     image: '/photos/people/testimonial-1.jpg',
-    alt: 'Amina Hassan',
+    alt: 'A woman in a business suit smiling',
     stars: 5,
   },
   {
@@ -289,7 +289,7 @@ export const TESTIMONIALS: Testimonial[] = [
     business: 'Household subscriber, Langata',
     ordered: 'Family Box — weekly',
     image: '/photos/people/testimonial-3.jpg',
-    alt: 'Faith Mwikali',
+    alt: 'A woman in a dark blazer smiling',
     stars: 5,
   },
 ];
@@ -339,7 +339,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-08-22',
     readingTime: '9 min read',
     image: '/photos/blog/blog-3.jpg',
-    alt: 'Fresh African leafy greens prepared for cooking',
+    alt: 'A plate of cooked greens served with meat and maize meal',
   },
   {
     slug: 'contract-farming-explained',
@@ -350,7 +350,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-08-08',
     readingTime: '8 min read',
     image: '/photos/blog/blog-4.jpg',
-    alt: 'A farmer inspecting a crop held under contract',
+    alt: 'Farmers working the soil with hand tools',
   },
   {
     slug: 'water-smart-irrigation',
@@ -361,7 +361,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-07-25',
     readingTime: '7 min read',
     image: '/photos/blog/blog-5.jpg',
-    alt: 'Irrigation lines running through a vegetable field',
+    alt: 'Sprinkler irrigation running over a field',
   },
   {
     slug: 'feeding-a-nairobi-restaurant',
@@ -372,7 +372,7 @@ export const BLOG_POSTS: BlogPost[] = [
     date: '2026-07-11',
     readingTime: '6 min read',
     image: '/photos/blog/blog-6.jpg',
-    alt: 'A chef working with freshly delivered produce',
+    alt: 'Chefs cooking over an open flame',
   },
 ];
 

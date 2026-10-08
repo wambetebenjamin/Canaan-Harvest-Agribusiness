@@ -153,6 +153,45 @@ documented stand-ins**.
 **The testimonials are illustrative content, not real reviews.** They must not
 be presented as genuine customer feedback in a live deployment.
 
+### Superseded — 2026-10-08: the swap is done
+
+The stand-in decision above was reversed on 2026-10-08. All 27 raster slots now
+hold **live Pexels photography of African subjects** and no template image
+remains in `public/photos/`.
+
+**How, given the same network constraint.** The allowlist still blocks
+`images.pexels.com`, but the image-search tool the agent can call does reach it
+— and for some hosts it returns the *original* file rather than a thumbnail.
+The route used was therefore: search → inspect every candidate by eye → keep
+only files served from `images.pexels.com` → crop and re-encode locally.
+
+**Findings worth recording:**
+
+- **Captions lie.** Roughly a third of the thumbnails returned for
+  African-subject queries were something else entirely — a California
+  strawberry field, two wine glasses, a shirtless man with a hoe returned for
+  "African woman farmer". Every image was inspected before use; twelve
+  candidates were discarded on sight, and one candidate was dropped because it
+  carried a Dreamstime watermark.
+- **Unsplash returns full resolution (3000 px+); Pexels returns 500–1050 px**
+  through this path. The three images that most needed resolution (hero poster,
+  leafy-green close-up, aerial) were already available at Pexels-grade sizes
+  after reframing, so the final set is Pexels-only and internally consistent
+  rather than mixed.
+- **Sourcing one photo per produce line** is still open — the 28 catalogue lines
+  share three close-ups. See `docs/PHOTO-SHOT-LIST.md`.
+
+**Resolution:**
+
+- `docs/image-credits.md` is rewritten: the placeholder warning is gone, every
+  file is mapped to its Pexels photo ID and, where known, its photographer.
+- Alt text in `src/data/produce.ts` and `src/data/content.ts` was rewritten to
+  describe what each photo now actually shows. The old alts ("Hass avocados
+  harvested at the Meru Ridge Farm" over a photo of bundled greens) described
+  images that no longer existed — alt text that lies is worse than none.
+- `next.config.mjs`, filenames, aspect ratios and byte budgets are unchanged, so
+  no component needed editing.
+
 ---
 
 ## 7. External services — no credentials available

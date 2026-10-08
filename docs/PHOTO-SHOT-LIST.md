@@ -1,16 +1,18 @@
-# Photo shot list
+# Photo shot list and slot register
 
-Every image slot in the site, what it needs to show, and the brief's approved
-search terms. Use this to replace the temporary template placeholders — see
-`docs/image-credits.md` for why the current set does not meet the brief.
+Every image slot in the site, what it shows today, and what it must show.
+**All 27 raster slots are filled** with live Pexels photography of East, West and
+Southern African subjects — see `docs/image-credits.md` for provenance.
 
-**Sources permitted by the brief:** Pexels and Unsplash only.
-**Subject requirement:** East African farmers and produce settings.
-**No AI-generated images.**
+**Sources permitted:** Pexels and Unsplash only. **No AI-generated images.**
+
+---
 
 ## Approved search terms
 
-These are the exact terms specified in the build brief:
+These are the brief's approved terms, and the terms the current set was sourced
+against (plus narrower variants such as `aerial view of farmland Mau Narok
+Kenya` and `chefs preparing dishes in a Kenyan kitchen`):
 
 1. `Kenyan farmer fresh produce farm`
 2. `East African vegetables market harvest`
@@ -21,92 +23,91 @@ These are the exact terms specified in the build brief:
 
 ---
 
-## Slots
+## Slots as filled
 
 ### Farm imagery — `public/photos/farm/`
 
-| Slot | Must show | Ratio | Suggested term |
+| Slot | Ratio | Shows | Status |
 | --- | --- | --- | --- |
-| `farm-field-aerial.webp` | Aerial/Drone view of cultivated Kenyan farmland, field rows visible | 16:9 | `Kenyan farm field aerial` |
-| `field-rows.jpg` | Rows of vegetables or grains on a working farm | 4:3 | `Kenyan farmer fresh produce farm` |
-| `farmer-harvest-kale.jpg` | A Kenyan farmer holding a leafy-green harvest, ideally smiling, looking at camera | 3:4 | `African woman farm vegetables Kenya` |
-| `harvest-greens.jpg` | Hands holding freshly cut greens | 4:3 | `East African vegetables market harvest` |
-| `packhouse-grading.jpg` | Produce being sorted or graded, crates or tables visible | 4:3 | `East African vegetables market harvest` |
-| `seedling-nursery.jpg` | Seedlings in a nursery bed or trays | 4:3 | `Kenyan farmer fresh produce farm` |
-| `soil-cultivation.jpg` | Hands, tools or feet working Kenyan soil | 4:3 | `Kenyan farmer fresh produce farm` |
-| `harvest-basket.jpg` | A basket or crate of mixed produce held or set down | 4:3 | `East African fresh fruit produce` |
-| `seedlings-planted.jpg` | Young plants in the ground, ideally with a person tending them | 4:3 | `African woman farm vegetables Kenya` |
-| `field-weeding.jpg` | A farmer working a vegetable bed | 4:3 | `Kenyan farmer fresh produce farm` |
+| `farm-field-aerial.webp` | 16:9 | Aerial farmland + road, Mau Narok, Nakuru County | ✅ Kenya, confirmed location |
+| `field-rows.jpg` | 4:3 | Rows of young crops, early morning | ✅ |
+| `farmer-harvest-kale.jpg` | 3:4 | Woman harvesting with a basket on her back, smiling | ✅ named persona hero |
+| `harvest-greens.jpg` | 4:3 | Woman cutting leafy greens in the field | ✅ |
+| `packhouse-grading.jpg` | 4:3 | Two men filling sacks with harvested crops | ✅ |
+| `seedling-nursery.jpg` | 4:3 | Seedlings in soil-filled nursery trays | ✅ |
+| `soil-cultivation.jpg` | 4:3 | Farmers working the soil with hand tools | ✅ |
+| `harvest-basket.jpg` | 4:3 | Woven basket of mixed harvested produce | ✅ |
+| `seedlings-planted.jpg` | 4:3 | Two women planting in a rural field | ✅ |
+| `field-weeding.jpg` | 4:3 | Woman working a farm field | ✅ |
 
 ### Produce close-ups — `public/photos/produce/`
 
-| Slot | Must show | Ratio | Suggested term |
+| Slot | Ratio | Shows | Status |
 | --- | --- | --- | --- |
-| `chard-beetroot.jpg` | Leafy greens with visible roots, fresh | 4:3 | `East African vegetables market harvest` |
-| `fresh-leaves.jpg` | Close-up of fresh leafy greens | 4:3 | `East African vegetables market harvest` |
-| `vegetable-basket.jpg` | Mixed Kenyan vegetables in a basket — **this is the hero 3D fallback poster** | 1:1 | `East African vegetables market harvest` |
+| `chard-beetroot.jpg` | 4:3 | Market display of greens and beetroot | ✅ |
+| `fresh-leaves.jpg` | 4:3 | Bundles of fresh leafy greens | ✅ |
+| `vegetable-basket.jpg` | 1:1 | Hands holding a basket of tomatoes, peppers, cucumber, celery — **hero 3D fallback poster** | ✅ |
 
-> The produce detail cards reuse these three close-ups across 28 catalogue
-> lines. For a stronger catalogue, source **one image per produce item** and
-> point the `image` field in `src/data/produce.ts` at it. Distinct images per
-> line would remove the visible repetition in the grid.
+> **Open item (unchanged):** the 28 catalogue lines share these three produce
+> close-ups, so the grid visibly repeats. Sourcing one photo per produce item
+> remains the highest-value improvement to the catalogue — point each `image`
+> field in `src/data/produce.ts` at its own file and update the `alt` beside it.
 
 ### Testimonial avatars — `public/photos/people/`
 
-| Slot | Must show | Ratio |
-| --- | --- | --- |
-| `testimonial-1.jpg` | East African chef — **must match the persona** (Chef Alice Wanjiru, procurement lead) | 1:1 |
-| `testimonial-2.jpg` | East African executive chef (Samuel Otieno) | 1:1 |
-| `testimonial-3.jpg` | East African procurement manager (Grace Nyambura) | 1:1 |
-| `testimonial-4.jpg` | Kenyan male farmer (Peter Kilonzo) | 1:1 |
+| Slot | Ratio | Shows | Status |
+| --- | --- | --- | --- |
+| `testimonial-1.jpg` | 1:1 | Woman in a grey blazer | ✅ |
+| `testimonial-2.jpg` | 1:1 | Chefs cooking over open flame (Uganda) | ✅ |
+| `testimonial-3.jpg` | 1:1 | Woman in a black suit | ✅ |
+| `testimonial-4.jpg` | 1:1 | Smiling farmer in a cap | ✅ |
 
-Suggested search term: `African chef restaurant fresh ingredients`
+`team-1.jpg` … `team-4.jpg` are filled too (professional and farm portraits) but
+remain **unreferenced by any page**.
 
-> **Highest priority.** The current placeholders show European subjects paired
-> with East African names. That is inaccurate and should be fixed first.
+> The portraits are stock photos of people who are not the named personas. Pair
+> the avatars with fictional names only as illustrative content, never as real
+> customer reviews.
 
 ### Blog imagery — `public/photos/blog/`
 
-| Slot | Article | Must show |
-| --- | --- | --- |
-| `blog-1.jpg` | What is actually in season in Kenya right now | Kenyan produce market stall |
-| `blog-2.jpg` | The cold chain that actually works | Packhouse or produce handling |
-| `blog-3.jpg` | Cooking indigenous greens | Prepared African leafy greens |
-| `blog-4.jpg` | What an off-take agreement commits you to | Farmer inspecting a crop |
-| `blog-5.jpg` | Water-smart irrigation | Irrigation on a field |
-| `blog-6.jpg` | Supplying a Nairobi restaurant | Chef working with fresh produce |
+| Slot | Article | Shows | Status |
+| --- | --- | --- | --- |
+| `blog-1.jpg` | What is actually in season in Kenya right now | Market stall of fresh produce, Ife, Nigeria | ✅ |
+| `blog-2.jpg` | The cold chain that actually works | Stacked crates of harvested produce | ✅ |
+| `blog-3.jpg` | Cooking indigenous greens | Plate of cooked greens with meat and maize meal | ✅ |
+| `blog-4.jpg` | What an off-take agreement commits you to | Farmers working the soil with hand tools | ✅ |
+| `blog-5.jpg` | Water-smart irrigation | Sprinklers over a green field | ✅ |
+| `blog-6.jpg` | Supplying a Nairobi restaurant | Chefs cooking over open flame | ✅ |
 
-### Brand assets — replace these too
+### Brand assets
 
-| Slot | Current state | Needed |
-| --- | --- | --- |
-| `public/favicon.png` | Generic template favicon | Canaan Harvest mark at 32×32 and 512×512 |
-| `public/apple-touch-icon.png` | Generic template icon | Canaan Harvest mark at 180×180 |
+| Slot | State |
+| --- | --- |
+| `public/favicon.png`, `public/apple-touch-icon.png`, `public/icons/*` | ✅ Canaan Harvest mark, generated by `scripts/make-icons.mjs` |
 
 ---
 
-## Technical requirements
+## Technical requirements (as built)
 
-- **Formats:** `.jpg` or `.webp`. `next.config.mjs` produces AVIF and WebP
-  variants automatically.
-- **Aspect ratios:** match the table. The CSS uses `aspect-ratio`, so a
-  mismatched image is cropped rather than distorted — but a wrong ratio crops
-  the subject.
-- **Resolution:** source at 2× the largest rendered size. The hero poster
-  renders up to 560 px, so source at 1200 px minimum. Card imagery renders up
-  to ~400 px, so 800 px is ample.
-- **File size:** keep under ~250 KB each for the card images, under ~500 KB for
-  the aerial and hero poster.
-- **Alt text:** every slot has authored alt text in `src/data/produce.ts` and
-  `src/data/content.ts`. Update it when you replace an image so it still
-  describes what is actually shown — alt text describing a placeholder is worse
-  than none.
-- **Attribution:** add the photographer and source URL to
-  `docs/image-credits.md` for each replacement.
+- **Formats:** `.jpg` (quality 85–86, progressive, optimised) plus one `.webp`
+  for the aerial. `next.config.mjs` emits AVIF and WebP variants automatically.
+- **Aspect ratios:** as tabled. CSS uses `aspect-ratio`, so a mismatch crops the
+  subject rather than distorting it.
+- **Resolution:** Pexels serves these at 500–1050 px on the long edge (see the
+  resolution note in `docs/image-credits.md`). That covers the rendered sizes;
+  swap in full-size downloads of the same IDs for 2× display.
+- **File size:** every file is under 220 KB (largest: `soil-cultivation.jpg`).
+- **Alt text:** every slot is described by what it actually shows, in
+  `src/data/produce.ts` and `src/data/content.ts`. Where one photo is reused
+  across catalogue lines the alt is reused verbatim, deliberately.
+- **Attribution:** photo IDs and photographers are recorded in
+  `docs/image-credits.md`.
 
 ## Verification after swapping
 
 ```bash
-npm run build          # catches any bad import path
-# then check the catalogue grid and the hero poster at 320px and 1440px
+npm run typecheck        # catches bad import paths and type drift
+npm run build            # catches anything the type-checker does not
+# then look at the catalogue grid and the hero poster at 320px and 1440px
 ```

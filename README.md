@@ -91,7 +91,7 @@ src/
 │                               captcha-server · submit · codes
 └── styles/                     11 stylesheets + tokens
 content/blog/                   6 MDX articles
-public/photos/                  placeholder imagery — see image-credits.md
+public/photos/                  Pexels photography — see image-credits.md
 public/favicon.svg · icons/     brand icons + wordmark.svg
 scripts/make-sprite.mjs         generates the EFFECT-31 sprite sheet
 scripts/make-icons.mjs          generates favicon, touch icon, maskable icon
@@ -198,16 +198,17 @@ Verified at **1440 / 1024 / 768 / 390 / 320 px**.
 | `docs/EFFECTS.md` | Every implemented effect with its reduced-motion fallback and file ownership, plus the 20/22/30 gap note. |
 | `docs/FONT-LICENSING.md` | Font provenance, OFL licensing, and why Marcellus 400-only matters. |
 | `docs/PHOTO-SHOT-LIST.md` | Every image slot, subject requirement, aspect ratio and the brief's search terms. |
-| `docs/image-credits.md` | **Photography is temporary placeholder material.** Provenance, licence and the known mismatch. |
+| `docs/image-credits.md` | Photography provenance: every file mapped to its Pexels photo ID and photographer, plus the licence and the verification performed. |
 
 ---
 
 ## ⚠️ Before production
 
-1. **Replace the photography.** Current images are template placeholders with
-   European subjects and do not meet the brief's "East African farmers and
-   produce settings" requirement. Start with the testimonial avatars — European
-   portraits are currently attached to East African personas.
+1. **Photography is in place** — 27 slots of live Pexels imagery of African
+   subjects, no template placeholders left. Two follow-ups remain: source one
+   photo per produce line (the 28 catalogue lines share three close-ups), and
+   download the same Pexels IDs at full size if you want 2× display. See
+   `docs/PHOTO-SHOT-LIST.md`.
 2. **Replace the testimonials** or confirm they are genuine. They are currently
    illustrative content, not real customer reviews.
 3. **Set `RECAPTCHA_SECRET_KEY`** — without it, forms are unverified.
