@@ -14,7 +14,7 @@ routes, no npm dependencies, no build tooling**.
 
 **Resolution:** treated as a *design source* only. Design values (custom
 properties, type scale, component geometry, keyframes) are reproduced
-verbatim; everything structural is new Next.js 15.1.0 App Router code.
+verbatim; everything structural is new Next.js 15 App Router code.
 Full inventory: `docs/ZIP-INSPECTION.md`.
 
 ---
@@ -211,16 +211,18 @@ single-file change. Documented in that file's header.
 
 ---
 
-## 10. `next@15.1.0` carries CVE-2025-66478
+## 10. `next@15.1.0` carried CVE-2025-66478 (patched)
 
-**Finding:** npm warns that Next 15.1.0 has a published security vulnerability
-(CVE-2025-66478) and recommends upgrading.
+**Finding:** Next 15.1.0 has published security vulnerabilities, including
+CVE-2025-66478 (React Server Components RCE). Vercel refuses/warns on deploy:
+*"Vulnerable version of Next.js detected, please update immediately."*
 
-**Resolution:** kept at **15.1.0** because the brief pins it explicitly
-(*"Next.js 15.1.0 App Router"*), and Next 15.1.0 also pins React 19.0.0.
-**This needs a decision before production.** Upgrading to a patched 15.x is
-expected to be low-risk — the app uses no exotic APIs, and `next.config.mjs`
-already carries a comment noting `allowedDevOrigins` requires ≥15.2.
+**Resolution:** upgraded to **15.5.27** (latest patched 15.x as of 30 Sep 2026)
+and matching `eslint-config-next`. React remains 19.0.0 (still a valid peer of
+15.5.27); RSC protocol packages are bundled by Next itself. `allowedDevOrigins`
+is now set so the Arena preview host can reach `next dev`. App Router APIs in
+this codebase were already async (`params` / `searchParams` as Promises), so
+the jump from 15.1 → 15.5 needed no page-level changes.
 
 ---
 
