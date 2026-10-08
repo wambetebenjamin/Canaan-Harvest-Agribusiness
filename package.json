@@ -10,7 +10,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "fetch:photos": "node scripts/fetch-photos.mjs"
   },
@@ -21,21 +21,20 @@
     "@vercel/kv": "^3.0.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "0.468.0",
-    "next": "15.1.0",
-    "next-mdx-remote": "^5.0.0",
-    "nodemailer": "^8.0.1",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "next": "16.4.0",
+    "next-mdx-remote": "6.0.0",
+    "nodemailer": "10.0.16",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "three": "^0.186.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
-    "@types/nodemailer": "^6.4.17",
-    "@types/react": "^19.0.7",
-    "@types/react-dom": "^19.0.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@types/three": "^0.186.0",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "^15.1.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.4.0",
     "typescript": "^5.7.3"
   }
 }

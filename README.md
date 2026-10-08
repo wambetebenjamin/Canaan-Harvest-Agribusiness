@@ -5,7 +5,7 @@ across Nairobi. Built for bulk buyers — supermarkets, hotels, restaurants and
 exporters — plus household subscription boxes and off-take agreements for
 farmers.
 
-**Next.js 15.1.0 App Router · TypeScript · Node 24.x · Vercel**
+**Next.js 16.4.0 App Router · TypeScript · Node 24.x · Vercel**
 
 ---
 
@@ -211,11 +211,9 @@ Verified at **1440 / 1024 / 768 / 390 / 320 px**.
 2. **Replace the testimonials** or confirm they are genuine. They are currently
    illustrative content, not real customer reviews.
 3. **Set `RECAPTCHA_SECRET_KEY`** — without it, forms are unverified.
-4. **Decide on `next@15.1.0`.** It carries CVE-2025-66478. See
-   `docs/DECISIONS.md` §10.
-5. **Wire the real integrations** — Vercel KV, Blob, Daraja, SMTP, WhatsApp
+4. **Wire the real integrations** — Vercel KV, Blob, Daraja, SMTP, WhatsApp
    Business. See `.env.example`.
-6. **For live buyer presence**, point `NEXT_PUBLIC_WS_URL` at a dedicated
+5. **For live buyer presence**, point `NEXT_PUBLIC_WS_URL` at a dedicated
    WebSocket host. See `docs/DECISIONS.md` §8.
 
 > The favicon, Apple touch icon, maskable PWA icon and `wordmark.svg` are

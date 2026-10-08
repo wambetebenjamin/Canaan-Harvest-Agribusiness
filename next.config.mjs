@@ -4,9 +4,10 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
 
-  // NOTE: `allowedDevOrigins` is only available from Next 15.2. This project
-  // pins 15.1.0 per the build brief, and 15.1.0 does not restrict dev origins,
-  // so the preview proxy host reaches the dev server without extra config.
+  // Next 15.2+ blocks cross-origin requests to the dev server. The Arena
+  // preview is served from `{port}-{sandboxId}.e2b.app`, which is not
+  // localhost, so it must be allowlisted. Production is unaffected.
+  allowedDevOrigins: ['*.e2b.app'],
 
   // Remote patterns kept open for the Pexels/Unsplash swap-in documented in
   // docs/PHOTO-SHOT-LIST.md. Photos are served from /public/photos today.
