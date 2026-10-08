@@ -1,0 +1,877 @@
+/* ============================================================================
+   PRODUCE CATALOGUE
+   EFFECT-15 scroll-snap rail · EFFECT-24 skeleton · EFFECT-26 hover reveal
+   EFFECT-27 neumorphic freshness widget · EFFECT-05 presence board
+   ========================================================================= */
+
+/* ── EFFECT-15 — horizontal scroll-snap rail of produce categories ────── */
+
+.rail-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.rail-nav {
+  display: none;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .rail-nav {
+    display: flex;
+  }
+}
+
+.rail-nav__btn {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  background: var(--surface-color);
+  color: var(--heading-color);
+  cursor: pointer;
+  transition: background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-icon) var(--ease-out);
+}
+
+.rail-nav__btn:hover:not(:disabled) {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color);
+  transform: scale(1.06);
+}
+
+.rail-nav__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.rail {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 6px 0 14px;
+  /* keeps focus rings on the first/last chip from being clipped */
+  scroll-padding-inline: 4px;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail__chip {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: var(--tap-min);
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  background: var(--surface-color);
+  color: var(--heading-color);
+  font-family: var(--heading-font);
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-icon) cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.rail__chip:hover {
+  border-color: var(--accent-30);
+  transform: translateY(-2px);
+}
+
+.rail__chip[aria-pressed='true'] {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+.rail__chip svg {
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.rail__count {
+  font-family: var(--default-font);
+  font-size: 11px;
+  font-weight: 700;
+  background: color-mix(in srgb, currentColor, transparent 82%);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+/* ── Produce grid: 4 → 2 → 1 columns ─────────────────────────────────── */
+
+.produce-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 26px;
+}
+
+@media (min-width: 640px) {
+  .produce-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .produce-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .produce-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ── EFFECT-26 — hover / focus / tap reveal of pricing + origin farm ──── */
+
+.produce-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow var(--dur-reveal) var(--ease-out),
+    border-color var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+.produce-card__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: color-mix(in srgb, var(--accent-color), white 94%);
+  overflow: hidden;
+}
+
+.produce-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 480ms var(--ease-out);
+}
+
+.produce-card__fresh {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: var(--contrast-color);
+  background: var(--accent-color);
+  margin: 0;
+}
+
+.produce-card__fresh[data-fresh='today'] {
+  background: #1f7a3f;
+}
+
+.produce-card__fresh[data-fresh='24h'] {
+  background: #2f8f4e;
+}
+
+.produce-card__fresh[data-fresh='48h'] {
+  background: #7a8f2f;
+}
+
+.produce-card__body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.produce-card h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+
+.produce-card__origin {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--default-50);
+  margin: 0 0 10px;
+}
+
+.produce-card__origin svg {
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.produce-card__packs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.produce-card__pack {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--default-92);
+  color: color-mix(in srgb, var(--default-color), transparent 22%);
+  white-space: nowrap;
+}
+
+.produce-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.produce-card__actions .btn {
+  flex: 1 1 0;
+  padding-inline: 12px;
+  font-size: 13px;
+}
+
+/* The reveal panel — 150–400ms, gated behind hover-capable pointers. */
+.produce-card__reveal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 14px 16px;
+  background: color-mix(in srgb, var(--background-color), transparent 6%);
+  border-top: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  backdrop-filter: blur(var(--glass-blur-sm));
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  pointer-events: none;
+}
+
+.produce-card__reveal-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.produce-card__reveal-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--default-50);
+}
+
+.produce-card__price {
+  font-family: var(--heading-font);
+  font-size: 20px;
+  color: var(--heading-color);
+  white-space: nowrap;
+}
+
+.produce-card__price small {
+  font-family: var(--default-font);
+  font-size: 11px;
+  color: var(--default-50);
+}
+
+.produce-card__farm {
+  font-size: 13px;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.produce-card__farm svg {
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+/* Media-hover gating: only devices with a real pointer get the hover lift. */
+@media (hover: hover) and (pointer: fine) {
+  .produce-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-30);
+    box-shadow: 0 18px 44px -24px color-mix(in srgb, var(--accent-color), transparent 50%);
+  }
+
+  .produce-card:hover .produce-card__media img {
+    transform: scale(1.06);
+  }
+
+  .produce-card:hover .produce-card__reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus-visible → identical reveal, for keyboard users on any device. */
+.produce-card:focus-within .produce-card__reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.produce-card:focus-within {
+  border-color: var(--accent-30);
+}
+
+/* Touch → equivalent tap toggle, driven by [data-revealed]. */
+@media (hover: none) {
+  .produce-card__reveal[data-pinned='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .produce-card__reveal-toggle {
+    display: inline-flex;
+  }
+}
+
+.produce-card__reveal-toggle {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  min-height: var(--tap-min);
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: var(--accent-color);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Keep the reveal panel clear of the action row it overlays. */
+.produce-card__body {
+  padding-bottom: 16px;
+}
+
+/* ── EFFECT-24 — shimmer skeleton cards, exact dimensions, zero CLS ───── */
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 640px) {
+  .skeleton-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .skeleton-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .skeleton-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  border-radius: 14px;
+  overflow: hidden;
+  /* Reserve the exact height of a real card so nothing shifts on swap. */
+  min-height: 372px;
+}
+
+.skeleton-card__media {
+  aspect-ratio: 4 / 3;
+  flex-shrink: 0;
+}
+
+.skeleton-card__body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 auto;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+}
+
+.skeleton-line--title {
+  height: 20px;
+  width: 62%;
+}
+
+.skeleton-line--short {
+  width: 40%;
+}
+
+.skeleton-line--mid {
+  width: 78%;
+}
+
+.skeleton-chips {
+  display: flex;
+  gap: 6px;
+}
+
+.skeleton-chip {
+  height: 18px;
+  width: 52px;
+  border-radius: 999px;
+}
+
+.skeleton-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.skeleton-btn {
+  height: var(--tap-min);
+  flex: 1 1 0;
+  border-radius: var(--radius-pill);
+}
+
+/* Shimmer sweep */
+.skeleton-card__media,
+.skeleton-line,
+.skeleton-chip,
+.skeleton-btn {
+  background-color: #e9ece9;
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 100%
+  );
+  background-size: 220px 100%;
+  background-repeat: no-repeat;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -220px 0;
+  }
+
+  100% {
+    background-position: calc(100% + 220px) 0;
+  }
+}
+
+/* Non-shimmering flat grey under reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-card__media,
+  .skeleton-line,
+  .skeleton-chip,
+  .skeleton-btn {
+    animation: none;
+    background-image: none;
+    background-color: #e6e9e6;
+  }
+}
+
+/* ── EFFECT-27 — neumorphic freshness widget ─────────────────────────── */
+
+.neu-widget {
+  margin-top: 34px;
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--neu-bg);
+  box-shadow: var(--neu-shadow-raised);
+}
+
+.neu-widget__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.neu-widget__head svg {
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.neu-widget__head h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--heading-color);
+}
+
+.neu-widget__head p {
+  margin: 0;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--heading-color), transparent 35%);
+}
+
+.neu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .neu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .neu-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.neu-cell {
+  padding: 16px;
+  border-radius: var(--neu-radius);
+  background: var(--neu-bg);
+  box-shadow: var(--neu-shadow-inset);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 132px;
+}
+
+.neu-cell__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  /* AA contrast on the neumorphic surface */
+  color: #46514a;
+  margin: 0;
+}
+
+.neu-cell__value {
+  font-family: var(--heading-font);
+  font-size: 26px;
+  color: var(--heading-color);
+  line-height: 1;
+  margin: 0;
+}
+
+.neu-cell__value small {
+  font-family: var(--default-font);
+  font-size: 12px;
+  color: #46514a;
+  margin-left: 4px;
+}
+
+/* Toggle — a physical switch with discernible pressed states */
+.neu-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: 8px 12px;
+  border: 0;
+  border-radius: var(--neu-radius);
+  background: var(--neu-bg);
+  box-shadow: var(--neu-shadow-raised-sm);
+  color: var(--heading-color);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: box-shadow 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+
+.neu-toggle[aria-pressed='true'] {
+  box-shadow: var(--neu-shadow-inset);
+  color: var(--accent-color);
+}
+
+.neu-toggle__knob {
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--default-color), transparent 84%);
+  position: relative;
+  flex-shrink: 0;
+  transition: background-color 200ms var(--ease-out);
+}
+
+.neu-toggle__knob::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--surface-color);
+  box-shadow: 1px 1px 3px color-mix(in srgb, var(--default-color), transparent 70%);
+  transition: transform 200ms var(--ease-out);
+}
+
+.neu-toggle[aria-pressed='true'] .neu-toggle__knob {
+  background: var(--accent-color);
+}
+
+.neu-toggle[aria-pressed='true'] .neu-toggle__knob::after {
+  transform: translateX(14px);
+}
+
+/* Spinner control — delivery days remaining */
+.neu-spinner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.neu-spinner__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--neu-bg);
+  box-shadow: var(--neu-shadow-raised-sm);
+  color: var(--heading-color);
+  cursor: pointer;
+  transition: box-shadow 160ms var(--ease-out), transform 160ms var(--ease-out);
+}
+
+.neu-spinner__btn:active:not(:disabled) {
+  box-shadow: var(--neu-shadow-inset);
+  transform: translateY(1px);
+}
+
+.neu-spinner__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.neu-spinner__value {
+  min-width: 46px;
+  text-align: center;
+  font-family: var(--heading-font);
+  font-size: 24px;
+  color: var(--heading-color);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Temperature indicator */
+.neu-temp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.neu-temp__gauge {
+  flex: 1 1 auto;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--neu-bg);
+  box-shadow: var(--neu-shadow-inset);
+  overflow: hidden;
+}
+
+.neu-temp__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2f8f4e, #d9a13a 62%, #c8553d);
+  transition: width 320ms var(--ease-out);
+}
+
+/* Weekly harvest volume mini chart */
+.neu-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 62px;
+}
+
+.neu-chart__bar {
+  flex: 1 1 0;
+  border-radius: 3px 3px 0 0;
+  background: color-mix(in srgb, var(--accent-color), transparent 55%);
+  min-height: 4px;
+  transition: height 420ms var(--ease-out), background-color 200ms var(--ease-out);
+}
+
+.neu-chart__bar[data-peak='true'] {
+  background: var(--accent-color);
+}
+
+/* ── EFFECT-05 — presence live board + collaborator dots ─────────────── */
+
+.presence {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px 8px 8px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--background-color), transparent 8%);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  backdrop-filter: blur(var(--glass-blur-sm));
+  box-shadow: 0 2px 14px -8px color-mix(in srgb, var(--default-color), transparent 70%);
+}
+
+.presence__dots {
+  display: flex;
+  align-items: center;
+}
+
+.presence__dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--background-color);
+  margin-left: -8px;
+  flex-shrink: 0;
+}
+
+.presence__dot:first-child {
+  margin-left: 0;
+}
+
+.presence__dot--more {
+  display: inline-grid;
+  place-items: center;
+  background: var(--accent-90);
+  color: var(--accent-color);
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: -8px;
+}
+
+.presence__text {
+  font-size: 13px;
+  color: var(--heading-color);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.presence__text strong {
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.presence__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--default-50);
+}
+
+.presence__pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2f8f4e;
+  box-shadow: 0 0 0 0 rgba(47, 143, 78, 0.55);
+  animation: presence-pulse 2s ease-out infinite;
+}
+
+@keyframes presence-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(47, 143, 78, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px rgba(47, 143, 78, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(47, 143, 78, 0);
+  }
+}
+
+/* Visitor cursor dots over the produce grid */
+.produce-stage {
+  position: relative;
+}
+
+.produce-cursors {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.produce-cursor {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--background-color);
+  box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--default-color), transparent 55%);
+  transition: transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 400ms linear;
+  will-change: transform;
+}
+
+.produce-cursor__tag {
+  position: absolute;
+  top: 16px;
+  left: 10px;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--heading-color);
+  color: var(--contrast-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presence__pulse {
+    animation: none;
+  }
+
+  .produce-cursor {
+    transition: opacity 200ms linear;
+  }
+
+  .rail {
+    scroll-behavior: auto;
+  }
+}

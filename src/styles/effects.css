@@ -1,0 +1,633 @@
+/* ============================================================================
+   FARM STORY CARD EFFECTS — EFFECT-07 · 08 · 09 · 13 · 14 · 16 · 17 · 19 · 21 · 31
+   ========================================================================= */
+
+.farm-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .farm-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .farm-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.farm-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+  padding: 22px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow var(--dur-icon) var(--ease-out),
+    border-color var(--dur-icon) var(--ease-out),
+    transform var(--dur-icon) var(--ease-out);
+}
+
+.farm-card:hover,
+.farm-card:focus-within {
+  border-color: var(--accent-30);
+  box-shadow: 0 14px 40px -20px color-mix(in srgb, var(--accent-color), transparent 55%);
+}
+
+.farm-card__visual {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 176px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.farm-card__index {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--default-50);
+}
+
+.farm-card h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.farm-card p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  margin: 0;
+}
+
+/* ── EFFECT-07 — farm field line-art, growth lines loop in viewport ───── */
+
+.effect07 svg {
+  width: 100%;
+  height: 100%;
+  max-height: 200px;
+  color: var(--accent-color);
+}
+
+.effect07 .field-row {
+  stroke: var(--accent-30);
+  stroke-width: 1.5;
+}
+
+.effect07 .growth-line {
+  stroke: var(--accent-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len, 160);
+  stroke-dashoffset: var(--len, 160);
+}
+
+.farm-card[data-inview='true'] .effect07 .growth-line {
+  animation: growth-draw 2.6s var(--ease-out) infinite;
+  animation-delay: calc(var(--i, 0) * 180ms);
+}
+
+@keyframes growth-draw {
+  0% {
+    stroke-dashoffset: var(--len, 160);
+    opacity: 0.25;
+  }
+
+  55% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: var(--len, 160);
+    opacity: 0.25;
+  }
+}
+
+/* ── EFFECT-08 — self-drawn wordmark, reused inside card 2 ────────────── */
+
+.effect08 svg {
+  width: min(220px, 78%);
+  height: auto;
+  color: var(--accent-color);
+  overflow: visible;
+}
+
+.effect08 path,
+.effect08 line,
+.effect08 polyline {
+  stroke-dasharray: var(--len, 300);
+  stroke-dashoffset: var(--len, 300);
+}
+
+.farm-card[data-inview='true'] .effect08 path,
+.farm-card[data-inview='true'] .effect08 line,
+.farm-card[data-inview='true'] .effect08 polyline {
+  animation: wordmark-draw 1.3s var(--ease-out) forwards;
+}
+
+/* ── EFFECT-09 — SVG morph cycling seed → sprout → leaf ───────────────── */
+
+.effect09 svg {
+  width: 150px;
+  height: 150px;
+  color: var(--accent-color);
+  overflow: visible;
+}
+
+.effect09 .morph-shape {
+  fill: none;
+  stroke: var(--accent-color);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.effect09 .morph-fill {
+  fill: color-mix(in srgb, var(--accent-color), transparent 86%);
+  stroke: none;
+  opacity: 0.85;
+}
+
+.effect09 .morph-label {
+  font-family: var(--heading-font);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--default-50);
+  stroke: none;
+}
+
+/* ── EFFECT-13 — Kenyan farmer mascot, waves on hover/focus ───────────── */
+
+.effect13 svg {
+  width: 170px;
+  height: 170px;
+  overflow: visible;
+}
+
+.effect13 .mascot-arm {
+  transform-origin: 74px 82px;
+  transition: transform 320ms var(--ease-out);
+}
+
+.effect13 .mascot-smile {
+  transform-origin: 84px 48px;
+}
+
+.effect13 .mascot-brow {
+  transition: transform 260ms var(--ease-out);
+}
+
+/* Wave triggered identically by hover and by focus. */
+.farm-card:hover .effect13 .mascot-arm,
+.farm-card:focus-within .effect13 .mascot-arm,
+.mascot-band:hover .effect13 .mascot-arm {
+  animation: mascot-wave 900ms var(--ease-out) infinite;
+}
+
+.farm-card:hover .effect13 .mascot-smile,
+.farm-card:focus-within .effect13 .mascot-smile {
+  animation: mascot-grin 600ms var(--ease-out) forwards;
+}
+
+@keyframes mascot-wave {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-18deg);
+  }
+
+  50% {
+    transform: rotate(6deg);
+  }
+
+  75% {
+    transform: rotate(-12deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes mascot-grin {
+  to {
+    transform: scaleY(1.15);
+  }
+}
+
+/* ── EFFECT-14 — faux-3D crate, bounded pointer tilt, no WebGL ────────── */
+
+.effect14 {
+  perspective: 900px;
+}
+
+.effect14 .crate {
+  position: relative;
+  width: 190px;
+  height: 150px;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--tilt-x, 0) * 1deg)) rotateY(calc(var(--tilt-y, 0) * 1deg));
+  transition: transform 260ms var(--ease-out);
+}
+
+.effect14 .crate-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  transform-style: preserve-3d;
+}
+
+.effect14 .crate-layer--back {
+  background: color-mix(in srgb, var(--accent-color), white 82%);
+  transform: translateZ(-26px) translateY(10px) scale(0.94);
+}
+
+.effect14 .crate-layer--mid {
+  background: color-mix(in srgb, var(--accent-color), white 72%);
+  transform: translateZ(-8px) translateY(5px) scale(0.97);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 10px;
+}
+
+.effect14 .crate-layer--front {
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent-color), white 55%),
+    color-mix(in srgb, var(--accent-color), white 78%)
+  );
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 62%);
+  transform: translateZ(12px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding: 12px;
+  box-shadow: 0 16px 26px -18px color-mix(in srgb, var(--accent-color), transparent 45%);
+}
+
+.effect14 .crate-produce {
+  border-radius: 50%;
+  background: var(--accent-color);
+  opacity: 0.9;
+  aspect-ratio: 1;
+}
+
+.effect14 .crate-produce:nth-child(3n) {
+  border-radius: 34% 66% 58% 42% / 52% 44% 56% 48%;
+  background: color-mix(in srgb, var(--accent-color), black 12%);
+}
+
+.effect14 .crate-produce:nth-child(4n) {
+  background: #d9a13a;
+}
+
+.effect14 .crate-produce:nth-child(5n) {
+  background: #c8553d;
+  border-radius: 40% 60% 45% 55% / 60% 45% 55% 40%;
+}
+
+/* ── EFFECT-16 — mixed-media collage ──────────────────────────────────── */
+
+.effect16 {
+  position: relative;
+}
+
+.effect16__photo {
+  position: relative;
+  z-index: 1;
+  width: 78%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  transform: rotate(-3deg);
+  box-shadow: 0 12px 30px -16px color-mix(in srgb, var(--default-color), transparent 45%);
+}
+
+.effect16__soil {
+  position: absolute;
+  bottom: 6%;
+  left: 4%;
+  width: 52%;
+  z-index: 2;
+  color: var(--accent-color);
+}
+
+/* aria-hidden grain overlay */
+.effect16__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      color-mix(in srgb, var(--default-color), transparent 40%) 0.5px,
+      transparent 0.6px
+    ),
+    radial-gradient(
+      circle at 70% 65%,
+      color-mix(in srgb, var(--default-color), transparent 40%) 0.5px,
+      transparent 0.6px
+    );
+  background-size: 4px 4px, 6px 6px;
+}
+
+/* ── EFFECT-17 — liquid gooey blob, bounded filter region ─────────────── */
+
+.effect17 {
+  position: relative;
+  isolation: isolate;
+}
+
+.effect17__blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* Bounded filter region — never bleeds past the card. */
+  filter: url(#goo-filter);
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+}
+
+.farm-card:hover .effect17__blobs,
+.farm-card:focus-within .effect17__blobs {
+  opacity: 1;
+}
+
+.effect17__blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-color);
+}
+
+.effect17__blob--a {
+  width: 74px;
+  height: 74px;
+  left: 26%;
+  top: 38%;
+}
+
+.effect17__blob--b {
+  width: 54px;
+  height: 54px;
+  left: 44%;
+  top: 48%;
+}
+
+.effect17__blob--c {
+  width: 62px;
+  height: 62px;
+  right: 24%;
+  top: 34%;
+}
+
+.farm-card:hover .effect17__blob,
+.farm-card:focus-within .effect17__blob {
+  animation: blob-morph 2.4s ease-in-out infinite alternate;
+}
+
+.farm-card:hover .effect17__blob--b,
+.farm-card:focus-within .effect17__blob--b {
+  animation-delay: 300ms;
+}
+
+.farm-card:hover .effect17__blob--c,
+.farm-card:focus-within .effect17__blob--c {
+  animation-delay: 600ms;
+}
+
+@keyframes blob-morph {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(9px, -11px, 0) scale(1.16);
+  }
+}
+
+.effect17__content {
+  position: relative;
+  z-index: 1;
+  font-family: var(--heading-font);
+  font-size: 32px;
+  color: var(--heading-color);
+  letter-spacing: 0.02em;
+}
+
+/* ── EFFECT-19 — isometric farm scene assembling on scroll ────────────── */
+
+.effect19 svg {
+  width: 100%;
+  height: auto;
+  max-height: 210px;
+  overflow: visible;
+}
+
+.effect19 .iso-part {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.farm-card[data-inview='true'] .effect19 .iso-part {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── EFFECT-21 — hand-drawn doodle, decorative, clear of labels ───────── */
+
+.effect21 svg {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  color: var(--accent-color);
+  overflow: visible;
+}
+
+.effect21 .doodle-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.effect21 .doodle-sunray {
+  stroke: color-mix(in srgb, #d9a13a, transparent 20%);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.farm-card[data-inview='true'] .effect21 .doodle-stroke,
+.farm-card[data-inview='true'] .effect21 .doodle-sunray {
+  stroke-dasharray: var(--len, 120);
+  animation: doodle-draw 2s var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 130ms);
+}
+
+@keyframes doodle-draw {
+  from {
+    stroke-dashoffset: var(--len, 120);
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── EFFECT-31 — stop-motion sprite, 8–12fps, single sheet request ────── */
+
+.effect31 {
+  --sprite-frames: 12;
+  --sprite-fps: 10;
+}
+
+.effect31__sprite {
+  width: 176px;
+  height: 176px;
+  background-image: url('/sprites/seed-growth-sprite.svg');
+  background-repeat: no-repeat;
+  background-size: calc(var(--sprite-frames) * 100%) 100%;
+  background-position: 0 0;
+}
+
+.farm-card[data-inview='true'] .effect31__sprite {
+  animation: sprite-play calc(var(--sprite-frames) / var(--sprite-fps) * 1s) steps(
+      var(--sprite-frames) - 1
+    ) infinite;
+}
+
+@keyframes sprite-play {
+  from {
+    background-position: 0% 0;
+  }
+
+  to {
+    background-position: 100% 0;
+  }
+}
+
+/* ── Mascot band in the order CTA ─────────────────────────────────────── */
+
+.mascot-band {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.mascot-band .effect13 svg {
+  width: 120px;
+  height: 120px;
+}
+
+/* ── Reduced motion — every card effect resolves to a static state ────── */
+
+@media (prefers-reduced-motion: reduce) {
+  /* EFFECT-07 → static frame */
+  .farm-card[data-inview='true'] .effect07 .growth-line {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  /* EFFECT-08 → drawn, held */
+  .farm-card[data-inview='true'] .effect08 path,
+  .farm-card[data-inview='true'] .effect08 line,
+  .farm-card[data-inview='true'] .effect08 polyline {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  /* EFFECT-09 → crossfade handled in the component; kill shape tweens */
+  .effect09 .morph-shape,
+  .effect09 .morph-fill {
+    transition: opacity 320ms linear;
+  }
+
+  /* EFFECT-13 → static pose */
+  .farm-card:hover .effect13 .mascot-arm,
+  .farm-card:focus-within .effect13 .mascot-arm,
+  .mascot-band:hover .effect13 .mascot-arm,
+  .farm-card:hover .effect13 .mascot-smile,
+  .farm-card:focus-within .effect13 .mascot-smile {
+    animation: none;
+  }
+
+  /* EFFECT-14 → flat */
+  .effect14 {
+    perspective: none;
+  }
+
+  .effect14 .crate {
+    transform: none;
+  }
+
+  .effect14 .crate-layer--back,
+  .effect14 .crate-layer--mid,
+  .effect14 .crate-layer--front {
+    display: none;
+  }
+
+  .effect14 .crate-layer--flat {
+    display: grid;
+  }
+
+  /* EFFECT-16 → static */
+  .effect16__photo {
+    transform: none;
+  }
+
+  /* EFFECT-17 → no blob motion */
+  .farm-card:hover .effect17__blob,
+  .farm-card:focus-within .effect17__blob {
+    animation: none;
+  }
+
+  .effect17__blobs {
+    transition: none;
+  }
+
+  /* EFFECT-19 → fully assembled */
+  .effect19 .iso-part {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* EFFECT-21 → drawn */
+  .farm-card[data-inview='true'] .effect21 .doodle-stroke,
+  .farm-card[data-inview='true'] .effect21 .doodle-sunray {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  /* EFFECT-31 → first frame only */
+  .farm-card[data-inview='true'] .effect31__sprite {
+    animation: none;
+    background-position: 0 0;
+  }
+}

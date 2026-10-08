@@ -1,0 +1,630 @@
+/* ============================================================================
+   NAVIGATION CHROME
+   EFFECT-10 (logo), EFFECT-11 (icon animation), EFFECT-28 (glassmorphic nav)
+   Layout rhythm ported from the zip's .header / .navmenu rules.
+   ========================================================================= */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: var(--header-padding-y) 0;
+  transition: all var(--transition-slow);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+/* ── EFFECT-28 — glassmorphic on scroll past 80px ──────────────────────
+   Blur hard-capped at 20px. Solid-colour fallback when backdrop-filter
+   is unsupported (see @supports block below).                          */
+
+.header[data-scrolled='true'] {
+  background-color: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  padding: calc(var(--header-padding-y) * 0.55) 0;
+}
+
+/* Cap enforcement: prevent any future token bump from exceeding 20px. */
+.header[data-scrolled='true'] {
+  -webkit-backdrop-filter: blur(min(var(--glass-blur), 20px)) saturate(180%);
+  backdrop-filter: blur(min(var(--glass-blur), 20px)) saturate(180%);
+}
+
+/* Solid fallback — no backdrop-filter support at all. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .header[data-scrolled='true'] {
+    background-color: var(--glass-fallback-bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Focus rings must stay visible over blur — inset halo guarantees it. */
+.header[data-scrolled='true'] a:focus-visible,
+.header[data-scrolled='true'] button:focus-visible {
+  outline-color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--background-color), transparent 12%);
+}
+
+/* ── Logo — EFFECT-10 ──────────────────────────────────────────────────
+   Animates once on load; replays on click. Accessible name is applied in
+   the component ("Canaan Harvest Home").                               */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--tap-min);
+  color: var(--heading-color);
+  flex-shrink: 0;
+}
+
+.brand__mark {
+  width: 40px; /* the zip's .header .logo img max-height: 40px */
+  height: 40px;
+  color: var(--accent-color);
+  overflow: visible;
+}
+
+.brand__mark path,
+.brand__mark circle,
+.brand__mark line {
+  stroke-dasharray: var(--len, 200);
+  stroke-dashoffset: var(--len, 200);
+}
+
+/* Run once on load … */
+.brand[data-draw='load'] .brand__mark path,
+.brand[data-draw='load'] .brand__mark circle,
+.brand[data-draw='load'] .brand__mark line {
+  animation: brand-draw 900ms var(--ease-out) forwards;
+}
+
+/* … and replay on click (data-draw flips to 'replay' then back). */
+.brand[data-draw='replay'] .brand__mark path,
+.brand[data-draw='replay'] .brand__mark circle,
+.brand[data-draw='replay'] .brand__mark line {
+  animation: brand-draw 700ms var(--ease-out) forwards;
+}
+
+.brand__mark path:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.brand__mark path:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+@keyframes brand-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.brand__name {
+  font-family: var(--heading-font);
+  font-size: 26px; /* the zip's .footer .footer-about .logo span scale */
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--heading-color);
+  white-space: nowrap;
+}
+
+.brand__name-small {
+  display: block;
+  font-family: var(--default-font);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--default-50);
+  margin-top: 3px;
+}
+
+/* ── Desktop nav ───────────────────────────────────────────────────────── */
+
+.nav {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .nav {
+    display: block;
+    flex: 1 1 auto;
+  }
+
+  .nav__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Source: main.css .navmenu a — 16px / Marcellus 400 / 18px 15px padding */
+  .nav__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--nav-color);
+    padding: 18px 15px;
+    font-size: 16px;
+    font-family: var(--nav-font);
+    font-weight: 400;
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+  }
+
+  .nav__link:hover,
+  .nav__link:focus-visible,
+  .nav__link[aria-current='page'] {
+    color: var(--nav-hover-color);
+  }
+
+  .nav__link[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 12px;
+    height: 2px;
+    background: var(--accent-color);
+    border-radius: 2px;
+  }
+
+  /* EFFECT-11 — icon animation, 180–420ms */
+  .nav__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    color: currentColor;
+    transition: transform var(--dur-icon) cubic-bezier(0.34, 1.4, 0.64, 1),
+      color var(--dur-icon) var(--ease-out);
+  }
+
+  .nav__link:hover .nav__icon,
+  .nav__link:focus-visible .nav__icon {
+    transform: translateY(-2px) scale(1.14) rotate(-6deg);
+  }
+
+  .nav__link:active .nav__icon {
+    transform: translateY(0) scale(0.92);
+    transition-duration: 120ms;
+  }
+}
+
+/* ── Right-hand CTA ────────────────────────────────────────────────────── */
+
+.header__cta {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .header__cta {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Mobile toggle + panel ─────────────────────────────────────────────── */
+
+.nav-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  margin-right: -8px;
+  border: 0;
+  background: transparent;
+  color: var(--nav-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.nav-toggle:hover {
+  background: color-mix(in srgb, var(--default-color), transparent 94%);
+}
+
+@media (min-width: 1200px) {
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* Panel — source: .navmenu ul inset 60px 20px 20px 20px, radius 6px */
+.nav-panel {
+  position: fixed;
+  inset: 60px 20px 20px 20px;
+  z-index: var(--z-mobile-panel);
+  padding: 10px 0;
+  border-radius: var(--radius-md);
+  background-color: var(--nav-mobile-background-color);
+  box-shadow: 0px 0px 30px var(--default-90);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out),
+    visibility 260ms var(--ease-out);
+}
+
+.nav-panel[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+@media (min-width: 1200px) {
+  .nav-panel {
+    display: none;
+  }
+}
+
+/* Source: .navmenu a @≤1199px — 17px / Marcellus 500 / 10px 20px */
+.nav-panel__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: var(--tap-min);
+  color: var(--nav-dropdown-color);
+  padding: 10px 20px;
+  font-family: var(--nav-font);
+  font-size: 17px;
+  font-weight: 500;
+  transition: background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out);
+}
+
+.nav-panel__link:hover,
+.nav-panel__link:focus-visible,
+.nav-panel__link[aria-current='page'] {
+  background-color: var(--accent-90);
+  color: var(--accent-color);
+}
+
+.nav-panel__link .nav__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--accent-90);
+  transition: transform var(--dur-icon) cubic-bezier(0.34, 1.4, 0.64, 1),
+    background-color var(--dur-icon) var(--ease-out);
+}
+
+.nav-panel__link:hover .nav__icon,
+.nav-panel__link:focus-visible .nav__icon {
+  transform: rotate(-10deg) scale(1.1);
+  background-color: var(--accent-75);
+}
+
+.nav-panel__cta {
+  margin: 16px 20px 8px;
+}
+
+/* ── EFFECT-21 — doodle in the mobile open state, driven by aria-expanded ── */
+
+.nav-toggle__doodle {
+  width: 28px;
+  height: 28px;
+  overflow: visible;
+  color: currentColor;
+}
+
+.nav-toggle__doodle path,
+.nav-toggle__doodle circle,
+.nav-toggle__doodle line {
+  transition: stroke-dashoffset 320ms var(--ease-out), opacity 220ms var(--ease-out),
+    transform 320ms var(--ease-out);
+}
+
+/* Closed: only the bars show */
+.nav-toggle__doodle .doodle-rain,
+.nav-toggle__doodle .doodle-sun,
+.nav-toggle__doodle .doodle-sprout {
+  opacity: 0;
+  stroke-dashoffset: 40;
+}
+
+.nav-toggle__doodle .doodle-bar {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+/* Open: bars fold away, the farm doodle draws itself in.
+   Selector keys off the button's own aria-expanded — no JS class toggling. */
+.nav-toggle[aria-expanded='true'] .doodle-bar {
+  opacity: 0;
+  stroke-dashoffset: 30;
+}
+
+.nav-toggle[aria-expanded='true'] .doodle-sun {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition-delay: 60ms;
+}
+
+.nav-toggle[aria-expanded='true'] .doodle-rain {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition-delay: 140ms;
+}
+
+.nav-toggle[aria-expanded='true'] .doodle-sprout {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition-delay: 220ms;
+}
+
+@media (min-width: 1200px) {
+  .nav-toggle__doodle {
+    display: none;
+  }
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+
+.footer {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  font-size: 14px; /* source: .footer */
+  position: relative;
+}
+
+.footer .footer-top {
+  background-color: color-mix(in srgb, var(--background-color), white 5%);
+  padding-top: 50px;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer__grid {
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+  }
+}
+
+/* Source: .footer h4 — 16px/600 with the 20×2px accent underline */
+.footer h4 {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--heading-font);
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+  color: var(--heading-color);
+}
+
+.footer h4::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--accent-color);
+  bottom: 0;
+  left: 0;
+}
+
+.footer .footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer .footer-links ul li {
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+.footer .footer-links ul a {
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+}
+
+.footer .footer-links ul a:hover {
+  color: var(--accent-color);
+}
+
+.footer .footer-links ul svg {
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.footer__about p {
+  font-size: 14px;
+  font-family: var(--heading-font);
+  line-height: 1.7;
+  max-width: 42ch;
+}
+
+.footer__contact {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.footer__contact p {
+  margin-bottom: 5px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.footer__contact svg {
+  color: var(--accent-color);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Source: .footer .social-links a — 36×36, radius 4px */
+.footer .social-links {
+  display: flex;
+  gap: 4px;
+  margin-top: 18px;
+}
+
+.footer .social-links a {
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--default-92);
+  color: var(--accent-color);
+  border-radius: var(--radius-sm);
+  width: 40px;
+  height: 40px;
+  transition: 0.3s;
+}
+
+.footer .social-links a:hover {
+  color: var(--contrast-color);
+  background: var(--accent-color);
+}
+
+.footer__payments {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.footer__pay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 54px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  background: var(--surface-color);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--heading-color);
+}
+
+.footer__pay--mpesa {
+  color: #ffffff;
+  background: #1f9c3f;
+  border-color: #1f9c3f;
+}
+
+.footer__newsletter {
+  margin-top: 14px;
+}
+
+.footer__newsletter-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.footer__newsletter input {
+  flex: 1 1 180px;
+  min-height: var(--tap-min);
+}
+
+.footer__newsletter .btn {
+  flex: 0 0 auto;
+}
+
+/* Source: .footer .copyright / .credits */
+.footer .copyright {
+  padding: 30px 0;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.footer .copyright p {
+  margin-bottom: 0;
+}
+
+.footer .credits {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--default-50);
+}
+
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* Re-opens the consent modal — DPA 2019 requires consent be as easy to
+   withdraw as it was to give, so this sits alongside the legal links. */
+.footer__cookie-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  font-size: 14px;
+  font-family: var(--default-font);
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-hover) var(--ease-out);
+}
+
+.footer__cookie-btn:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,272 @@
+/* ============================================================================
+   LOADING SCREEN — EFFECT-25 (sprouting seedling) + EFFECT-08 (self-draw wordmark)
+   ----------------------------------------------------------------------------
+   Zip source carried over verbatim:
+     #preloader      → position fixed, inset 0, z-index 999999,
+                       background var(--background-color), transition .6s ease-out
+     spin keyframe   → 1.5s linear infinite
+     ring geometry   → 60 × 60px, 6px border,
+                       colour var(--accent-color) / transparent quadrants
+
+   Added per brief: seedling metaphor, horizontal progress bar, skip control,
+   role="status" completion, percentage text under reduced-motion.
+   Total budget capped under 2s (see Preloader.tsx).
+   ========================================================================= */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  background: var(--background-color);
+  transition: opacity var(--transition-fade) var(--ease-out),
+    visibility var(--transition-fade) var(--ease-out);
+  opacity: 1;
+  visibility: visible;
+}
+
+.preloader[data-state='exiting'],
+.preloader[data-state='done'] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 24px;
+  text-align: center;
+}
+
+/* ── Seedling + ring ─────────────────────────────────────────────────────
+   The ring retains the zip's exact 60px / 6px / 1.5s geometry.          */
+
+.preloader__stage {
+  position: relative;
+  width: var(--preloader-size);
+  height: var(--preloader-size);
+  display: grid;
+  place-items: center;
+}
+
+.preloader__ring {
+  position: absolute;
+  inset: 0;
+  border: var(--preloader-border) solid #ffffff;
+  border-color: var(--accent-color) transparent var(--accent-color) transparent;
+  border-radius: 50%;
+  animation: animate-preloader var(--preloader-spin) linear infinite;
+}
+
+/* Verbatim from main.css — keyframe name preserved. */
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.preloader__seedling {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  z-index: 1;
+  color: var(--accent-color);
+  overflow: visible;
+}
+
+.preloader__seedling .seedling-stem,
+.preloader__seedling .seedling-leaf {
+  stroke-dasharray: var(--len, 60);
+  stroke-dashoffset: var(--len, 60);
+  animation: seedling-grow 1.5s var(--ease-out) forwards;
+}
+
+.preloader__seedling .seedling-leaf--left {
+  animation-delay: 0.32s;
+  transform-origin: 50% 100%;
+}
+
+.preloader__seedling .seedling-leaf--right {
+  animation-delay: 0.5s;
+  transform-origin: 50% 100%;
+}
+
+.preloader__seedling .seedling-soil {
+  opacity: 0;
+  animation: seedling-soil 0.45s var(--ease-out) 0.1s forwards;
+}
+
+@keyframes seedling-grow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes seedling-soil {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Wordmark — EFFECT-08 self-draw ─────────────────────────────────────
+   --len is computed at runtime with getTotalLength() in WordmarkDraw.tsx  */
+
+.preloader__wordmark {
+  width: min(280px, 62vw);
+  height: auto;
+  color: var(--accent-color);
+  overflow: visible;
+}
+
+.preloader__wordmark path,
+.preloader__wordmark line,
+.preloader__wordmark polyline,
+.preloader__wordmark circle {
+  stroke-dasharray: var(--len, 400);
+  stroke-dashoffset: var(--len, 400);
+  animation: wordmark-draw 1.1s var(--ease-out) forwards;
+}
+
+@keyframes wordmark-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.preloader__tagline {
+  font-family: var(--heading-font);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--default-50);
+  margin: 0;
+}
+
+/* ── Progress bar ──────────────────────────────────────────────────────── */
+
+.preloader__progress-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 0 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.preloader__bar {
+  position: relative;
+  width: min(320px, 68vw);
+  height: 4px;
+  border-radius: 999px;
+  background: var(--accent-15, color-mix(in srgb, var(--accent-color), transparent 85%));
+  overflow: hidden;
+}
+
+.preloader__bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--accent-color);
+  transition: width 120ms linear;
+}
+
+.preloader__percent {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--default-50);
+  margin: 0;
+}
+
+/* Percentage text is the primary progress signal under reduced-motion. */
+.preloader__percent--reduced {
+  display: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+/* ── Skip control — appears only if the page is still loading at 3s ───── */
+
+.preloader__skip {
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--accent-color);
+  background: transparent;
+  color: var(--accent-color);
+  font-family: var(--heading-font);
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out),
+    background-color var(--dur-hover) var(--ease-out);
+}
+
+.preloader__skip[data-visible='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.preloader__skip:hover {
+  background: var(--accent-90);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────
+   Ring stops spinning, seedling and wordmark render in their completed
+   state, and the plain percentage becomes the visible progress signal.  */
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader__ring {
+    animation: none;
+    border-color: var(--accent-color) transparent var(--accent-color) transparent;
+  }
+
+  .preloader__seedling .seedling-stem,
+  .preloader__seedling .seedling-leaf {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .preloader__seedling .seedling-soil {
+    opacity: 1;
+    animation: none;
+  }
+
+  .preloader__wordmark path,
+  .preloader__wordmark line,
+  .preloader__wordmark polyline,
+  .preloader__wordmark circle {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .preloader__bar-fill {
+    transition: width 200ms linear;
+  }
+
+  .preloader__percent {
+    display: none;
+  }
+
+  .preloader__percent--reduced {
+    display: block;
+  }
+}

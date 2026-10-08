@@ -1,0 +1,733 @@
+/* ============================================================================
+   SITE CHROME
+   Cookie consent banner + modal · WhatsApp float · AR farm tour bay (EFFECT-03)
+   Contact/map · Testimonials · Blog
+   ========================================================================= */
+
+/* ── COOKIE CONSENT BANNER ──────────────────────────────────────────────
+   Bottom-fixed, full width. Kenya Data Protection Act 2019 compliant:
+   granular consent, necessary category locked, no pre-ticked optional
+   categories, consent withdrawable at any time.                        */
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-overlay);
+  background: var(--surface-color);
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  box-shadow: 0 -12px 40px -28px color-mix(in srgb, var(--default-color), transparent 40%);
+  padding: 18px 0;
+  transform: translateY(100%);
+  transition: transform 420ms var(--ease-out);
+}
+
+.cookie-banner[data-visible='true'] {
+  transform: translateY(0);
+}
+
+.cookie-banner__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 1024px) {
+  .cookie-banner__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 26px;
+  }
+}
+
+.cookie-banner__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--default-color), transparent 14%);
+  margin: 0;
+  max-width: 78ch;
+}
+
+.cookie-banner__text a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Consent modal ─────────────────────────────────────────────────────── */
+
+.consent-modal {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-overlay) + 1);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: color-mix(in srgb, #060606, transparent 34%);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.consent-modal__panel {
+  width: 100%;
+  max-width: 520px;
+  max-height: min(86vh, 720px);
+  overflow-y: auto;
+  background: var(--surface-color);
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 30px 80px -40px color-mix(in srgb, var(--default-color), transparent 30%);
+}
+
+.consent-modal__panel h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 6px;
+}
+
+.consent-modal__intro {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  line-height: 1.65;
+  margin: 0 0 20px;
+}
+
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 0;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.consent-row:last-of-type {
+  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.consent-row__copy {
+  flex: 1 1 auto;
+}
+
+.consent-row__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consent-row__desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--default-50);
+  margin: 0;
+}
+
+.consent-row__lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--default-50);
+  background: color-mix(in srgb, var(--default-color), transparent 94%);
+  border-radius: 999px;
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.consent-modal__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.consent-modal__actions .btn {
+  flex: 1 1 140px;
+}
+
+.consent-modal__foot {
+  font-size: 11px;
+  color: var(--default-50);
+  margin: 14px 0 0;
+}
+
+/* Toggle switch reused inside the consent modal */
+.consent-switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 52px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 82%);
+  background: color-mix(in srgb, var(--default-color), transparent 94%);
+  cursor: pointer;
+  transition: background-color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out);
+}
+
+.consent-switch[aria-checked='true'] {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.consent-switch[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.consent-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface-color);
+  box-shadow: 1px 1px 4px color-mix(in srgb, var(--default-color), transparent 70%);
+  transition: transform 200ms var(--ease-out);
+}
+
+.consent-switch[aria-checked='true']::after {
+  transform: translateX(22px);
+}
+
+/* ── WHATSAPP FLOAT ────────────────────────────────────────────────────── */
+
+.wa-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: calc(var(--z-scroll-top) - 1);
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+@media (max-width: 480px) {
+  .wa-float {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+.wa-float__btn {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  /* WhatsApp brand green, paired with the zip's accent for the halo */
+  background: #25d366;
+  color: #ffffff;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 10px 28px -12px rgba(37, 211, 102, 0.65),
+    0 2px 6px -2px color-mix(in srgb, var(--default-color), transparent 70%);
+  transition: transform var(--dur-icon) cubic-bezier(0.34, 1.4, 0.64, 1),
+    box-shadow var(--dur-icon) var(--ease-out);
+}
+
+.wa-float__btn:hover {
+  transform: scale(1.07);
+}
+
+.wa-float__btn:active {
+  transform: scale(0.96);
+}
+
+/* Subtle pulse every 10 seconds — one ring expansion per cycle. */
+.wa-float__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: wa-pulse var(--pulse-interval) ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes wa-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  9% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.wa-float__tooltip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  width: max-content;
+  max-width: 240px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--heading-color);
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.45;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+  box-shadow: 0 8px 24px -12px color-mix(in srgb, var(--default-color), transparent 50%);
+}
+
+.wa-float__tooltip::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 7px solid transparent;
+  border-left-color: var(--heading-color);
+}
+
+.wa-float__btn:hover + .wa-float__tooltip,
+.wa-float__btn:focus-visible + .wa-float__tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ── EFFECT-03 — AR farm tour bay ─────────────────────────────────────── */
+
+.ar-bay {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--accent-color), white 90%),
+    color-mix(in srgb, var(--accent-color), white 97%)
+  );
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 88%);
+}
+
+.ar-bay__stage {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.ar-bay__pano {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  cursor: grab;
+  transition: background-position 60ms linear;
+  will-change: background-position;
+}
+
+.ar-bay__pano:active {
+  cursor: grabbing;
+}
+
+.ar-bay__pano:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: -4px;
+}
+
+.ar-bay__idle {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 26px;
+  max-width: 460px;
+}
+
+.ar-bay__idle h3 {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.ar-bay__idle p {
+  font-size: 15px;
+  color: color-mix(in srgb, var(--default-color), transparent 24%);
+  margin: 0 0 18px;
+}
+
+.ar-bay__notice {
+  font-size: 11px;
+  color: var(--default-50);
+  margin: 12px 0 0;
+}
+
+/* Exit control is ALWAYS rendered and always focusable once in-session. */
+.ar-bay__exit {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 6;
+}
+
+.ar-bay__hud {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--background-color), transparent 18%);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  backdrop-filter: blur(var(--glass-blur-sm));
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--heading-color);
+  margin: 0;
+}
+
+/* ── Testimonials ──────────────────────────────────────────────────────── */
+
+.testimonials {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 768px) {
+  .testimonials {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .testimonials {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  border-radius: 16px;
+  /* stagger reveal — index driven */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 520ms var(--ease-out), transform 520ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--stagger-step));
+}
+
+.testimonial[data-inview='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testimonial:hover {
+  border-color: var(--accent-30);
+  /* Pause on hover: freeze the reveal transform mid-flight */
+  transition-delay: 0ms;
+}
+
+.testimonial__stars {
+  display: flex;
+  gap: 2px;
+  color: #d9a13a;
+}
+
+.testimonial__quote {
+  font-size: 15px;
+  line-height: 1.72;
+  color: color-mix(in srgb, var(--default-color), transparent 12%);
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.testimonial__person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 93%);
+}
+
+.testimonial__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.testimonial__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin: 0;
+}
+
+.testimonial__biz {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--default-50);
+  margin: 2px 0 0;
+}
+
+.testimonial__ordered {
+  font-size: 11px;
+  color: var(--accent-color);
+  margin: 4px 0 0;
+}
+
+/* ── Blog ──────────────────────────────────────────────────────────────── */
+
+.post-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .post-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .post-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color var(--dur-reveal) var(--ease-out),
+    box-shadow var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .post-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-30);
+    box-shadow: 0 18px 44px -26px color-mix(in srgb, var(--accent-color), transparent 55%);
+  }
+}
+
+.post-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--accent-color), white 94%);
+}
+
+.post-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-card__body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.post-card__cat {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin: 0 0 8px;
+}
+
+.post-card h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+
+.post-card p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--default-color), transparent 28%);
+  margin: 0 0 14px;
+}
+
+.post-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  font-size: 13px;
+  color: var(--default-50);
+}
+
+/* ── Contact + delivery zone ──────────────────────────────────────────── */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+}
+
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-info__item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.contact-info__item svg {
+  color: var(--accent-color);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.contact-info__item h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.contact-info__item p {
+  font-size: 14px;
+  margin: 0;
+  color: color-mix(in srgb, var(--default-color), transparent 22%);
+}
+
+.map-embed {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  background: color-mix(in srgb, var(--accent-color), white 95%);
+}
+
+.map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.zone-checker {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+.zone-checker .input {
+  flex: 1 1 200px;
+}
+
+.zone-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.zone-result--yes {
+  background: color-mix(in srgb, var(--accent-color), transparent 92%);
+  border: 1px solid var(--accent-30);
+  color: var(--heading-color);
+}
+
+.zone-result--no {
+  background: color-mix(in srgb, #d9a13a, transparent 90%);
+  border: 1px solid color-mix(in srgb, #d9a13a, transparent 55%);
+  color: var(--heading-color);
+}
+
+.zone-result svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-banner {
+    transition: none;
+  }
+
+  .wa-float__btn::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .wa-float__btn:hover {
+    transform: none;
+  }
+
+  .testimonial {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

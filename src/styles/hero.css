@@ -1,0 +1,444 @@
+/* ============================================================================
+   HERO — EFFECT-01 · 04 · 06 · 18 · 23
+   Base layout values ported from the zip's .hero rules:
+     .hero .carousel-container  inset: 90px 64px 64px 64px
+     .hero h2                   48px / 700  (30px ≤768px)
+     .hero .btn-get-started     15px Marcellus 500, radius 50px, padding 8px 32px
+     @keyframes fadeInUp / fadeInDown  1s both, +0.2s / +0.4s stagger
+   ========================================================================= */
+
+.hero {
+  position: relative;
+  padding: 0;
+  min-height: calc(100svh - 84px);
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  isolation: isolate;
+}
+
+/* ── EFFECT-18 — slow animated gradient backdrop ────────────────────────
+   Animates background-position ONLY, as the brief requires. Both extremes
+   are verified reachable in the keyframe (0% ≡ 100% loop point).        */
+
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: linear-gradient(
+    118deg,
+    color-mix(in srgb, var(--accent-color), white 92%) 0%,
+    color-mix(in srgb, var(--accent-color), white 84%) 22%,
+    color-mix(in srgb, #f7d774, white 86%) 42%,
+    color-mix(in srgb, var(--accent-color), white 90%) 63%,
+    color-mix(in srgb, #7fb98a, white 88%) 82%,
+    color-mix(in srgb, var(--accent-color), white 92%) 100%
+  );
+  background-size: 340% 340%;
+  background-position: 0% 50%;
+  animation: hero-gradient var(--dur-gradient) ease-in-out infinite;
+}
+
+@keyframes hero-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--background-color), transparent 55%) 0%,
+    color-mix(in srgb, var(--background-color), transparent 78%) 55%,
+    var(--background-color) 100%
+  );
+}
+
+/* ── EFFECT-06 — ambient drifting leaf particles ────────────────────────
+   aria-hidden, opacity held under 0.2, paused when the tab is hidden,
+   frozen under reduced-motion.                                          */
+
+.hero__leaves {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.19; /* below the 0.2 ceiling */
+}
+
+.hero__leaves[data-paused='true'] .hero__leaf {
+  animation-play-state: paused;
+}
+
+.hero__leaf {
+  position: absolute;
+  color: var(--accent-color);
+  opacity: 0.9;
+  will-change: transform;
+  animation: leaf-drift var(--dur-drift) linear infinite;
+}
+
+.hero__leaf svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes leaf-drift {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(4vw, 45vh, 0) rotate(180deg);
+  }
+
+  100% {
+    transform: translate3d(-2vw, 108vh, 0) rotate(360deg);
+  }
+}
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+
+.hero__container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 64px 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .hero__container {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    padding: 72px 20px;
+  }
+}
+
+.hero__copy {
+  max-width: 640px;
+}
+
+/* ── EFFECT-23 — sequenced entrance, whole sequence < 1.6s ──────────────
+   Steps: eyebrow → headline → sub-copy → CTAs → 3D visual.
+   Every step is a 480ms rise on a 130ms ladder, finishing at ~1.30s.
+   Elements start visible-by-default when the animation is skipped, and
+   the CTA is focusable from first paint regardless (no pointer-events
+   gating, no visibility:hidden on the focusable layer).                */
+
+.hero[data-entrance='run'] .hero-step {
+  animation: hero-rise 480ms var(--ease-out) both;
+}
+
+.hero[data-entrance='run'] .hero-step--1 {
+  animation-delay: 0ms;
+}
+
+.hero[data-entrance='run'] .hero-step--2 {
+  animation-delay: var(--dur-entry-step);
+}
+
+.hero[data-entrance='run'] .hero-step--3 {
+  animation-delay: calc(var(--dur-entry-step) * 2);
+}
+
+.hero[data-entrance='run'] .hero-step--4 {
+  animation-delay: calc(var(--dur-entry-step) * 3);
+}
+
+.hero[data-entrance='run'] .hero-step--5 {
+  animation-delay: calc(var(--dur-entry-step) * 4);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ── Headline + EFFECT-04 per-letter stagger ──────────────────────────── */
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  border: 1px solid var(--accent-30);
+  border-radius: var(--radius-pill);
+  padding: 7px 16px;
+  margin-bottom: 20px;
+}
+
+/* Source: .hero h2 — 48px / 700, 30px ≤768px */
+.hero__title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  margin: 0 0 22px;
+  color: var(--heading-color);
+}
+
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 30px;
+  }
+}
+
+.hero__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero__char {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 0.34em, 0);
+}
+
+.hero__title[data-split='run'] .hero__char {
+  animation: char-rise 460ms var(--ease-out) both;
+  animation-delay: calc(var(--char-index, 0) * 34ms);
+}
+
+@keyframes char-rise {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Keyword "Fresh" gets a glitch pass. Applied to the whole word so the
+   letters stay legible; the sr-only sentence carries the clean text. */
+.hero__word--glitch .hero__char {
+  animation: char-rise 460ms var(--ease-out) both,
+    glitch-pass 700ms steps(2, end) 420ms 1;
+  animation-delay: calc(var(--char-index, 0) * 34ms), 420ms;
+}
+
+@keyframes glitch-pass {
+  0% {
+    transform: translate3d(0, 0, 0);
+    text-shadow: none;
+    clip-path: inset(0 0 0 0);
+  }
+
+  18% {
+    transform: translate3d(-2px, 1px, 0);
+    text-shadow: 2px 0 0 color-mix(in srgb, #e0426b, transparent 35%),
+      -2px 0 0 color-mix(in srgb, #2ea359, transparent 35%);
+    clip-path: inset(12% 0 42% 0);
+  }
+
+  36% {
+    transform: translate3d(2px, -1px, 0);
+    text-shadow: -2px 0 0 color-mix(in srgb, #e0426b, transparent 35%),
+      2px 0 0 color-mix(in srgb, #2ea359, transparent 35%);
+    clip-path: inset(48% 0 8% 0);
+  }
+
+  54% {
+    transform: translate3d(-1px, 0, 0);
+    text-shadow: 1px 0 0 color-mix(in srgb, #e0426b, transparent 45%),
+      -1px 0 0 color-mix(in srgb, #2ea359, transparent 45%);
+    clip-path: inset(24% 0 30% 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+    text-shadow: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.hero__sub {
+  font-size: 16px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--default-color), transparent 22%);
+  margin: 0 0 28px;
+  max-width: 52ch;
+}
+
+@media (min-width: 1024px) {
+  .hero__title,
+  .hero__sub {
+    max-width: 100%;
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.hero__actions .btn {
+  margin: 0;
+}
+
+.hero__proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  list-style: none;
+  font-size: 13px;
+  color: var(--default-50);
+}
+
+.hero__proof li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hero__proof svg {
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+/* ── EFFECT-01 — 3D produce basket ─────────────────────────────────────── */
+
+.hero__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 560px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 50% 42%,
+    color-mix(in srgb, var(--accent-color), white 90%) 0%,
+    color-mix(in srgb, var(--accent-color), white 97%) 62%,
+    var(--background-color) 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 88%);
+  touch-action: pan-y; /* vertical scroll stays native; horizontal drag orbits */
+}
+
+.hero__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.hero__canvas:active {
+  cursor: grabbing;
+}
+
+.hero__canvas:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: -4px;
+  box-shadow: inset var(--focus-ring-halo);
+}
+
+/* Poster fallback — used under reduced-motion and when WebGL is absent. */
+.hero__poster {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.hero__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.hero__stage-hint {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 2;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--default-50);
+  background: color-mix(in srgb, var(--background-color), transparent 22%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  padding: 5px 12px;
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  backdrop-filter: blur(var(--glass-blur-sm));
+  margin: 0;
+  pointer-events: none;
+}
+
+.hero__stage-badge {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--background-color), transparent 18%);
+  border: 1px solid var(--accent-30);
+  border-radius: var(--radius-pill);
+  padding: 6px 12px;
+  margin: 0;
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  backdrop-filter: blur(var(--glass-blur-sm));
+  pointer-events: none;
+}
+
+/* ── Reduced motion — EFFECT-01 / 04 / 06 / 18 ────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__backdrop {
+    animation: none;
+    background-position: 50% 50%;
+  }
+
+  .hero__leaf {
+    animation: none;
+    opacity: 0;
+  }
+
+  .hero[data-entrance='run'] .hero-step,
+  .hero__title[data-split='run'] .hero__char,
+  .hero__word--glitch .hero__char {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    text-shadow: none;
+    clip-path: none;
+  }
+}
